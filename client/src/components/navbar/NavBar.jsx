@@ -4,20 +4,31 @@ import {
   Button,
   Drawer,
   IconButton,
+  Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import NavListDrawer from "./Navlistdrawer";
+import NavListDrawer from "./NavListDrawer";
 import MenuIcon from "@mui/icons-material/Menu";
-import { NavLink } from "react-router-dom";
+import routes from "../../pages/routes";
+import Login from "../userLoginRegister/Login";
+import Register from "../userLoginRegister/Register";
 
-const NavBar = ({ routes }) => {
+const NavBar = () => {
   const [open, setOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     console.log(open);
     setOpen(!open);
+  };
+  const handleLoginOpen = () => {
+    setLoginOpen(!loginOpen);
+  };
+  const handleRegisterOpen = () => {
+    setRegisterOpen(!registerOpen);
   };
 
   return (
@@ -29,23 +40,37 @@ const NavBar = ({ routes }) => {
               <MenuIcon />
             </IconButton>
           </Box>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Gym App
+          <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
+            GainzsApp
           </Typography>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {routes.map((route) => (
-              <Button
-                key={route.name}
-                color="inherit"
-                component={NavLink}
-                to={route.path}
-              >
-                {route.name}
-              </Button>
-            ))}
-          </Box>
+          <Stack
+            spacing={1}
+            direction="row"
+            sx={{ display: { xs: "none", md: "flex" } }}
+          >
+            <Button
+              onClick={handleLoginOpen}
+              color="success"
+              variant="contained"
+            >
+              Iniciar Sesion
+            </Button>
+            <Button
+              onClick={handleRegisterOpen}
+              color="success"
+              variant="contained"
+            >
+              Registrarse
+            </Button>
+          </Stack>
         </Toolbar>
+        <Login loginOpen={loginOpen} handleLoginOpen={handleLoginOpen} />
+        <Register
+          registerOpen={registerOpen}
+          handleRegisterOpen={handleRegisterOpen}
+        />
       </AppBar>
+
       <Drawer
         open={open}
         anchor="left"
@@ -57,6 +82,8 @@ const NavBar = ({ routes }) => {
         <NavListDrawer
           routes={routes}
           drawerOpen={handleDrawerOpen}
+          handleLoginOpen={handleLoginOpen}
+          handleRegisterOpen={handleRegisterOpen}
         ></NavListDrawer>
       </Drawer>
     </>

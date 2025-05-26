@@ -15,6 +15,7 @@ export class UserValidate {
   static async Password(password) {
     const passform = UserZodSchema.shape.password;
 
+
     try {
       return passform.parse(password);
     } catch (error) {

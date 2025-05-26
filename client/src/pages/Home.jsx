@@ -1,8 +1,8 @@
-
+import NavBar from "../components/navbar/NavBar";
 const Home = () => {
   return (
     <>
-      hola
+      <NavBar />
     </>
   );
 };
