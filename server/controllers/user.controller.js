@@ -54,8 +54,9 @@ export default class UserController {
       res
         .cookie("authToken", token, {
           httpOnly: true,
-          sameSite: "strict",
+          // sameSite: "strict", // Lo comente para evitar problemas de CORS si queres despues probalo y fijate si anda igual
           maxAge: 1000 * 60 * 60,
+          secure: false, // Cambiar a true en producción
         })
         .send({ message: "Inicio de sesión exitoso" });
     } catch (error) {

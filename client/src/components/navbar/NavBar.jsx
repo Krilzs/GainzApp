@@ -14,14 +14,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import routes from "../../pages/routes";
 import Login from "../userLoginRegister/Login";
 import Register from "../userLoginRegister/Register";
+import useAuth from "../../auth/auth";
 
 const NavBar = () => {
+  const isLoggedIn = useAuth((s) => s.isLoggedIn);
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
 
   const handleDrawerOpen = () => {
-    console.log(open);
     setOpen(!open);
   };
   const handleLoginOpen = () => {
@@ -43,26 +44,28 @@ const NavBar = () => {
           <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
             GainzsApp
           </Typography>
-          <Stack
-            spacing={1}
-            direction="row"
-            sx={{ display: { xs: "none", md: "flex" } }}
-          >
-            <Button
-              onClick={handleLoginOpen}
-              color="success"
-              variant="contained"
+          {!isLoggedIn && (
+            <Stack
+              spacing={1}
+              direction="row"
+              sx={{ display: { xs: "none", md: "flex" } }}
             >
-              Iniciar Sesion
-            </Button>
-            <Button
-              onClick={handleRegisterOpen}
-              color="success"
-              variant="contained"
-            >
-              Registrarse
-            </Button>
-          </Stack>
+              <Button
+                onClick={handleLoginOpen}
+                color="success"
+                variant="contained"
+              >
+                Iniciar Sesion
+              </Button>
+              <Button
+                onClick={handleRegisterOpen}
+                color="success"
+                variant="contained"
+              >
+                Registrarse
+              </Button>
+            </Stack>
+          )}
         </Toolbar>
         <Login loginOpen={loginOpen} handleLoginOpen={handleLoginOpen} />
         <Register

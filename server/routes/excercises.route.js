@@ -9,8 +9,7 @@ exerciseRouter.use(cookieParser());
 
 // Define routes for user
 
-exerciseRouter.get("/excercises", ExerciseController.getAllExercises);
-
-exerciseRouter.get("/excercises/:id", ExerciseController.getExerciseById);
+exerciseRouter.get("/exercises", ExerciseController.getAllExercises);
+exerciseRouter.get("/exercises/:id", ExerciseController.getExerciseById);
 
 export default exerciseRouter;
