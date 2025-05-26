@@ -17,10 +17,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import { useState } from "react";
+// import { set } from "mongoose";
+import useAuth from "../../auth/auth";
 const Login = ({ loginOpen, handleLoginOpen }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [loginError, setLoginError] = useState(false);
+
+  const setIsLoggedIn = useAuth((s) => s.setIsLoggedIn);
 
   const handleLoginError = (closeOrOpen) => {
     setLoginError(closeOrOpen);
@@ -69,6 +73,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
 
     fetch("http://localhost:3000/users/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -76,10 +81,12 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
     }).then((response) => {
       if (response.ok) {
         console.log("Login successful");
+        setIsLoggedIn(true);
         handleLoginOpen(); // Close the dialog
         // Handle successful login, e.g., redirect or show a success message
       } else {
         handleLoginError(true);
+        setIsLoggedIn(false);
       }
     });
   };

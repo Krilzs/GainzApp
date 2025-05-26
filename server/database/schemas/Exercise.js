@@ -6,14 +6,16 @@ export const ExerciseSchema = new Schema({
     required: true,
   },
   sets: {
-    type: Number,
+    type: [
+      {
+        reps: { type: Number, required: true },
+        weight: { type: Number, required: true },
+      },
+    ],
   },
   description: {
     type: String,
     required: true,
-  },
-  lastWeight: {
-    type: Number,
   },
 });
 

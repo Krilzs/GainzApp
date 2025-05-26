@@ -22,6 +22,4 @@ usersRouter.delete("/routines", UserController.deleteRoutine);
 usersRouter.post("/routines/exercise", UserController.setExcercise);
 usersRouter.delete("/routines/exercise", UserController.deleteExcercise);
 
-
-
 export default usersRouter;
