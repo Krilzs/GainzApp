@@ -29,7 +29,7 @@ export default class UserController {
         height,
         weight,
       });
-      res.status(result.status).send(result.message);
+      res.status(result.status).json({ message: result.message });
     } catch (error) {
       res.status(400).send("Error Validacion de Datos");
     }
