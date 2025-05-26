@@ -33,6 +33,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
 
   //Esquema del registro para hacer la validacion de datos
   const registerSchema = z.object({
+    name: z.string(),
     email: z.string().email(),
     password: z
       .string()
@@ -58,6 +59,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
 
   // Estado para manejar el formulario
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -67,6 +69,11 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
   });
 
   const [errors, setErrors] = useState([
+    {
+      path: "name",
+      error: "",
+      hasError: false,
+    },
     {
       path: "email",
       error: "",
@@ -145,8 +152,35 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
       handleErrors();
       /* RESULT CONTIENE LA DATA PARSEADA, OSEA LA DATA VALIDA PARA EL FETCH... se debe pasar todo menos el confirmPassword */
 
-
-      /* ACA VA EL FETCH */
+      fetch("http://localhost:3000/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: result.name,
+          email: result.email,
+          password: result.password,
+          age: result.age,
+          height: result.height,
+          weight: result.weight,
+        }),
+      })
+        .then((response) => {
+          console.log("Response:", response);
+          if (!response.ok) {
+            throw new Error("Error en el registro");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Registro exitoso:", data);
+          handleRegisterOpen(); // Cerrar el diálogo después del registro exitoso
+        })
+        .catch((error) => {
+          console.error("Error al registrar:", error);
+          handleErrors("email", "El correo ya está en uso");
+        });
 
       console.log(result);
     } catch (error) {
@@ -197,6 +231,19 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
               autoFocus
               required
               margin="dense"
+              id="name"
+              name="name"
+              label="Nombre"
+              type="text"
+              fullWidth
+              error={getError("name").hasError}
+              helperText={getError("name").error}
+              variant="standard"
+              onChange={handleChange}
+            />
+            <TextField
+              required
+              margin="dense"
               id="email"
               name="email"
               label="Direccion de correo electronico"
@@ -207,6 +254,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
               variant="standard"
               onChange={handleChange}
             />
+
             <TextField
               required
               margin="dense"

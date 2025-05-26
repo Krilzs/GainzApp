@@ -1,5 +1,7 @@
 import { useTheme } from "@emotion/react";
 import {
+  Alert,
+  AlertTitle,
   Button,
   Dialog,
   DialogActions,
@@ -7,19 +9,80 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
+  Grow,
+  IconButton,
   TextField,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import { useState } from "react";
 const Login = ({ loginOpen, handleLoginOpen }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [loading, setLoading] = useState(false);
-  function handleLoading() {
-    console.log("Loading");
-    setLoading(!loading);
-  }
+  const [loginError, setLoginError] = useState(false);
+
+  const handleLoginError = (closeOrOpen) => {
+    setLoginError(closeOrOpen);
+  };
+
+  const errorAlert = (
+    <Alert
+      severity="error"
+      action={
+        <IconButton
+          aria-label="close"
+          color="inherit"
+          size="small"
+          onClick={() => {
+            setLoginError(false);
+          }}
+        >
+          <CloseIcon fontSize="inherit" />
+        </IconButton>
+      }
+    >
+      {loginError && (
+        <>
+          <AlertTitle>Error al Iniciar Sesion</AlertTitle>
+          Por favor, revisa tus credenciales e intenta nuevamente.
+        </>
+      )}
+    </Alert>
+  );
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch("http://localhost:3000/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }).then((response) => {
+      if (response.ok) {
+        console.log("Login successful");
+        handleLoginOpen(); // Close the dialog
+        // Handle successful login, e.g., redirect or show a success message
+      } else {
+        handleLoginError(true);
+      }
+    });
+  };
 
   return (
     <Dialog
@@ -31,12 +94,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
         paper: {
           component: "form",
           onSubmit: (e) => {
-            e.preventDefault();
-            setTimeout(() => {
-              handleLoading();
-              handleLoginOpen();
-            }, 2000);
-            handleLoading();
+            handleSubmit(e);
           },
         },
       }}
@@ -54,6 +112,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
         >
           Inicia sesion con tu cuenta, o registrate si no tienes una.
         </DialogContentText>
+
         <Divider textAlign="center" sx={{ mt: 4 }}>
           Inicio de Sesion
         </Divider>
@@ -61,13 +120,13 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
           autoFocus
           required
           margin="dense"
-          
           id="email"
           name="email"
           label="Direccion de correo electronico"
           type="email"
           fullWidth
           variant="standard"
+          onChange={handleChange}
         />
         <TextField
           required
@@ -79,14 +138,23 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
           fullWidth
           variant="standard"
           helperText="Deberia tener al menos 8 caracteres"
+          onChange={handleChange}
         />
+
+        <Grow
+          in={loginError}
+          style={{ transformOrigin: "0 0 0" }}
+          {...(loginError ? { timeout: 500 } : {})}
+        >
+          {errorAlert}
+        </Grow>
+
         <DialogActions>
           <Button color="error" size="small" onClick={handleLoginOpen}>
             Cancelar
           </Button>
           <Button
             color="success"
-            loading={loading}
             variant="contained"
             size="medium"
             type="submit"
