@@ -48,7 +48,7 @@ export class UserModel {
 
   static async getRoutines(id) {
     //Consulta a la base de datos sobre las rutinas
-    const userRoutines = await User.findById(id, {routines: 1 });
+    const userRoutines = await User.findById(id, { routines: 1 });
     if (!userRoutines) throw new Error("User Not Found");
 
     return userRoutines.routines;
@@ -113,7 +113,6 @@ export class UserModel {
       (exercise) => exercise._id.toString() === excerciseId
     );
 
-
     if (!exerciseExists) throw new Error("Exercise Not Found");
 
     //Eliminacion del ejercicio
@@ -127,5 +126,17 @@ export class UserModel {
     );
 
     return user;
+  }
+
+  static async saveRefreshToken(userId, refreshToken) {
+    await User.updateOne({ _id: userId }, { refreshToken });
+  }
+
+  static async removeRefreshToken(userId) {
+    await User.updateOne({ _id: userId }, { $unset: { refreshToken: "" } });
+  }
+
+  static async findByRefreshToken(refreshToken) {
+    return User.findOne({ refreshToken });
   }
 }

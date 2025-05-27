@@ -2,17 +2,13 @@ import { UserModel } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 
 const KEY_JWT = process.env.KEY_JWT;
+const REFRESH_KEY_JWT = process.env.REFRESH_KEY_JWT;
 
 const compareToken = async (token) => {
   if (!token) throw new Error("Token no valido");
-
   return jwt.verify(token, KEY_JWT, (err, decoded) => {
-    if (err) {
-      throw new Error(err);
-    }
-    if (!decoded) {
-      throw new Error("Token no valido");
-    }
+    if (err) throw new Error(err);
+    if (!decoded) throw new Error("Token no valido");
     return decoded;
   });
 };
@@ -39,7 +35,7 @@ export default class UserController {
     const { email, password } = req.body;
     try {
       const user = await UserModel.login({ email, password });
-      const token = jwt.sign(
+      const accessToken = jwt.sign(
         {
           id: user.id,
           name: user.name,
@@ -49,18 +45,70 @@ export default class UserController {
           weight: user.weight,
         },
         KEY_JWT,
-        { expiresIn: "1h" }
+        { expiresIn: "15m" }
       );
+      const refreshToken = jwt.sign(
+        {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          age: user.age,
+          height: user.height,
+          weight: user.weight,
+        },
+        REFRESH_KEY_JWT,
+        { expiresIn: "7d" }
+      );
+      await UserModel.saveRefreshToken(user.id, refreshToken);
+
       res
-        .cookie("authToken", token, {
+        .cookie("authToken", accessToken, {
           httpOnly: true,
-          // sameSite: "strict", // Lo comente para evitar problemas de CORS si queres despues probalo y fijate si anda igual
-          maxAge: 1000 * 60 * 60,
-          secure: false, // Cambiar a true en producción
+          maxAge: 1000 * 60 * 15,
+          secure: false, // Cambiar a true en produccion
+        })
+        .cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          secure: false, // Cambiar a true en produccion
         })
         .send({ message: "Inicio de sesión exitoso" });
     } catch (error) {
       res.status(401).send(error.message);
+    }
+  };
+
+  static refreshToken = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken)
+      return res.status(401).json({ message: "No refresh token" });
+    try {
+      jwt.verify(refreshToken, REFRESH_KEY_JWT);
+      const user = await UserModel.findByRefreshToken(refreshToken);
+      if (!user)
+        return res.status(403).json({ message: "Refresh token inválido" });
+      const newAccessToken = jwt.sign(
+        {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          age: user.age,
+          height: user.height,
+          weight: user.weight,
+        },
+        KEY_JWT,
+        { expiresIn: "15m" }
+      );
+
+      res
+        .cookie("authToken", newAccessToken, {
+          httpOnly: true,
+          maxAge: 1000 * 60 * 15,
+          secure: false,
+        })
+        .json({ message: "Token refrescado" });
+    } catch (err) {
+      res.status(401).json({ message: "Refresh token inválido" });
     }
   };
 
@@ -99,8 +147,19 @@ export default class UserController {
   };
 
   static logout = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (refreshToken) {
+      try {
+        const user = await UserModel.findByRefreshToken(refreshToken);
+        if (user) await UserModel.removeRefreshToken(user._id);
+      } catch (err) {
+        ("Error al eliminar el refresh token");
+        console.error(err);
+      }
+    }
     res
       .clearCookie("authToken")
+      .clearCookie("refreshToken")
       .status(200)
       .send({ message: "Sesión cerrada" });
   };

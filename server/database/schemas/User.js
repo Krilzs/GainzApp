@@ -50,6 +50,7 @@ const UserSchema = new Schema({
     required: true,
   },
   routines: [routineSchema],
+  refreshToken: { type: String },
 });
 
 UserSchema.pre("save", async function (next) {

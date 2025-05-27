@@ -12,6 +12,7 @@ usersRouter.use(cookieParser());
 usersRouter.post("/register", UserController.registerUser);
 usersRouter.post("/login", UserController.login);
 usersRouter.post("/logout", UserController.logout);
+usersRouter.post("/refresh-token", UserController.refreshToken);
 
 usersRouter.get("/info", UserController.myInfo);
 
