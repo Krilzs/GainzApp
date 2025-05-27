@@ -80,7 +80,6 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
       body: JSON.stringify(formData),
     }).then((response) => {
       if (response.ok) {
-        console.log("Login successful");
         setIsLoggedIn(true);
         handleLoginOpen(); // Close the dialog
         // Handle successful login, e.g., redirect or show a success message
