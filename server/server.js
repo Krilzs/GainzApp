@@ -5,6 +5,7 @@ import morgan from "morgan";
 import usersRouter from "./routes/user.routes.js";
 import excerciseRouter from "./routes/excercises.route.js";
 import authenticate from "./middleware/authMiddleware.js";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -12,6 +13,8 @@ const PORT = parseInt(process.env.PORT, 10) ?? 6000;
 
 connectDB();
 const app = express();
+app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   cors({

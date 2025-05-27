@@ -9,15 +9,13 @@ function App() {
   const setIsLoggedIn = useAuth((s) => s.setIsLoggedIn);
 
   useEffect(() => {
-    fetch("/check-auth", {
+    fetch("http://localhost:3000/check-auth", {
+      method: "GET",
       credentials: "include",
     })
       .then((res) => {
-        if (!res.ok) throw new Error("No autorizado");
-        return res.json();
-      })
-      .then((data) => {
-        setIsLoggedIn(data.isLoggedIn);
+        if (!res.ok) return setIsLoggedIn(false);
+        if (res.ok) setIsLoggedIn(true);
       })
       .catch(() => {
         setIsLoggedIn(false);

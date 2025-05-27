@@ -32,6 +32,23 @@ const NavBar = () => {
     setRegisterOpen(!registerOpen);
   };
 
+  const logout = () => {
+    fetch("http://localhost:3000/users/logout", {
+      method: "POST",
+      credentials: "include",
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Logout failed");
+        setOpen(false);
+        setLoginOpen(false);
+        setRegisterOpen(false);
+        useAuth.getState().setIsLoggedIn(false);
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+      });
+  };
+
   return (
     <>
       <AppBar position="static" color="primary">
@@ -44,7 +61,7 @@ const NavBar = () => {
           <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
             GainzsApp
           </Typography>
-          {!isLoggedIn && (
+          {isLoggedIn == false && (
             <Stack
               spacing={1}
               direction="row"
@@ -63,6 +80,17 @@ const NavBar = () => {
                 variant="contained"
               >
                 Registrarse
+              </Button>
+            </Stack>
+          )}
+          {isLoggedIn == true && (
+            <Stack
+              spacing={1}
+              direction="row"
+              sx={{ display: { xs: "none", md: "flex" } }}
+            >
+              <Button onClick={logout} color="success" variant="contained">
+                Cerrar Sesion
               </Button>
             </Stack>
           )}
