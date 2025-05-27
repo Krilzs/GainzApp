@@ -55,7 +55,7 @@ const NavBar = () => {
         <Toolbar>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton color="inherit" onClick={handleDrawerOpen}>
-              <MenuIcon />
+              <MenuIcon sx={{color:"secondary.main"}}/>
             </IconButton>
           </Box>
           <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
@@ -68,18 +68,18 @@ const NavBar = () => {
               sx={{ display: { xs: "none", md: "flex" } }}
             >
               <Button
+                onClick={handleRegisterOpen}
+                color="secondary"
+                variant="outlined"
+              >
+                Registrarse
+              </Button>
+              <Button
                 onClick={handleLoginOpen}
-                color="success"
+                color="secondary"
                 variant="contained"
               >
                 Iniciar Sesion
-              </Button>
-              <Button
-                onClick={handleRegisterOpen}
-                color="success"
-                variant="contained"
-              >
-                Registrarse
               </Button>
             </Stack>
           )}

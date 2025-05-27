@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   List,
@@ -18,7 +19,10 @@ const NavListDrawer = ({
 }) => {
   return (
     <>
-      <Box sx={{ width: "250px" }}>
+      <Box sx={{ width: "250px", height: "100%", bgcolor: "primary.main" }}>
+        <Avatar
+          sx={{ marginTop: 2, marginLeft: 2, width: 48, height: 48 }}
+        ></Avatar>
         <nav>
           <List>
             {routes.map((route) => (
@@ -26,17 +30,26 @@ const NavListDrawer = ({
                 key={route.name}
                 component={NavLink}
                 to={route.path}
-                disablePadding
                 onClick={drawerOpen}
               >
-                <ListItemText sx={{ color: "black" }} primary={route.name} />
+                <ListItemText
+                  sx={{ color: "primary.contrastText" }}
+                  variant="h1"
+                  primary={route.name}
+                />
               </ListItemButton>
             ))}
-            <ListItemButton onClick={handleLoginOpen} disablePadding>
-              <ListItemText sx={{ color: "black" }} primary="Iniciar Sesion" />
+            <ListItemButton onClick={handleLoginOpen}>
+              <ListItemText
+                sx={{ color: "primary.contrastText" }}
+                primary="Iniciar Sesion"
+              />
             </ListItemButton>
-            <ListItemButton onClick={handleRegisterOpen} disablePadding>
-              <ListItemText sx={{ color: "black" }} primary="Registrarse" />
+            <ListItemButton onClick={handleRegisterOpen}>
+              <ListItemText
+                sx={{ color: "primary.contrastText" }}
+                primary="Registrarse"
+              />
             </ListItemButton>
           </List>
           <Stack
