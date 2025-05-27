@@ -55,7 +55,7 @@ const NavBar = () => {
         <Toolbar>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton color="inherit" onClick={handleDrawerOpen}>
-              <MenuIcon sx={{color:"secondary.main"}}/>
+              <MenuIcon sx={{ color: "secondary.main" }} />
             </IconButton>
           </Box>
           <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
@@ -89,7 +89,7 @@ const NavBar = () => {
               direction="row"
               sx={{ display: { xs: "none", md: "flex" } }}
             >
-              <Button onClick={logout} color="success" variant="contained">
+              <Button onClick={logout} color="secondary" variant="contained">
                 Cerrar Sesion
               </Button>
             </Stack>

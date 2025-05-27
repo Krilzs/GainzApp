@@ -14,11 +14,19 @@ function App() {
       credentials: "include",
     })
       .then((res) => {
-        if (!res.ok) return setIsLoggedIn(false);
+        if (!res.ok) {
+          if (res.status === 401) {
+            console.error("Unauthorized access");
+            return setIsLoggedIn(false);
+          }
+          console.error("Error checking auth status: ", res.statusText);
+          throw new Error("Failed to check authentication status");
+        }
         if (res.ok) setIsLoggedIn(true);
       })
-      .catch(() => {
+      .catch((err) => {
         setIsLoggedIn(false);
+        console.error("Unauthorized: ", err);
       });
   }, []);
 
