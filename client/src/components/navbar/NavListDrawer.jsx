@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, List, Stack } from "@mui/material";
 import ListItemCustom from "./ListItemCustom.jsx";
-import ThemeSwitcher from "../theme/SwitchTheme.jsx";
+import ThemeSwitcher from "../themeSwitcher/SwitchTheme.jsx";
 
 const NavListDrawer = ({
   routes,
@@ -11,13 +11,14 @@ const NavListDrawer = ({
 }) => {
   return (
     <>
-      <Box sx={{ width: "250px", height: "100%", bgcolor: "primary.main" }}>
+      <Box
+        sx={{ width: "250px", height: "100%", bgcolor: "background.default" }}
+      >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           {isLoggedIn == false && (
             <Stack spacing={1} pt={2} pl={2} direction="row">
               <Button
                 onClick={handleLoginOpen}
-                sx={{ textWrap: "nowrap" }}
                 color="secondary"
                 size="small"
                 variant="contained"

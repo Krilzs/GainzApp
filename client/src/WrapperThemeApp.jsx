@@ -9,12 +9,16 @@ function ThemeAppWrapper() {
     palette: {
       mode: mode,
       background: {
-        default: mode === "dark" ? "#121212" : "#f4f5f9",
-        paper: mode === "dark" ? "#1e1e1e" : "#ffffff",
+        default: mode === "dark" ? "#121212" : "#ddd",
+        paper: mode === "dark" ? "#000000" : "#ffffff",
       },
       primary: {
         main: "#121212",
-        contrastText: "#fff",
+        contrastText: mode === "dark" ? "#1e1e1e" : "#ffffff",
+        },
+      text: {
+        primary: mode === "dark" ? "#ffffff" : "#121212",
+        secondary: mode === "dark" ? "#ffffff" : "#121212",
       },
       secondary: {
         main: "#FF6B35",

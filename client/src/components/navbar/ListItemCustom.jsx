@@ -31,7 +31,8 @@ const ListItemCustom = ({ route, drawerOpen, index }) => {
     >
       <ListItemText
         sx={{
-          color: "primary.contrastText",
+          color: "text",
+          fontWeight: "bold",
           borderBottom: "2px solid",
           borderColor: "secondary.main",
         }}

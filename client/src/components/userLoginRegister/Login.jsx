@@ -132,6 +132,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
           type="email"
           fullWidth
           variant="standard"
+          color="secondary"
           onChange={handleChange}
         />
         <TextField
@@ -143,6 +144,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
           type="password"
           fullWidth
           variant="standard"
+          color="secondary"
           helperText="Deberia tener al menos 8 caracteres"
           onChange={handleChange}
         />
@@ -160,7 +162,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
             Cancelar
           </Button>
           <Button
-            color="success"
+            color="secondary"
             variant="contained"
             size="medium"
             type="submit"

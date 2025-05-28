@@ -13,7 +13,7 @@ const ThemeSwitcher = () => {
   return (
     <Stack
       direction="row"
-      bgcolor={"primary.main"}
+      bgcolor={"background.default"}
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
@@ -30,7 +30,7 @@ const ThemeSwitcher = () => {
             color="secondary.main"
           />
         }
-        sx={{ m: 0, bgcolor: "primary.main" }} // Remove default margin if needed
+        sx={{ m: 0, bgcolor: "background.default" }} // Remove default margin if needed
       />
       <Typography sx={{ display: "flex", color: "secondary.main" }}>
         <DarkModeIcon />
