@@ -51,8 +51,8 @@ const NavBar = () => {
 
   return (
     <>
-      <AppBar position="static" color="primary">
-        <Toolbar>
+      <AppBar position="sticky" color="primary">
+        <Toolbar sx={{ height: "64px" }}>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton color="inherit" onClick={handleDrawerOpen}>
               <MenuIcon sx={{ color: "secondary.main" }} />
@@ -101,7 +101,6 @@ const NavBar = () => {
           handleRegisterOpen={handleRegisterOpen}
         />
       </AppBar>
-
       <Drawer
         open={open}
         anchor="left"
