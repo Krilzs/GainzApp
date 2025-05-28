@@ -4,6 +4,13 @@ import jwt from "jsonwebtoken";
 const KEY_JWT = process.env.KEY_JWT;
 const REFRESH_KEY_JWT = process.env.REFRESH_KEY_JWT;
 
+/**
+ * verifica y decodifica un token de acceso.
+ * @async
+ * @param {string} token - token JWT de acceso.
+ * @returns {Promise<Object>} el payload decodificado del token.
+ * @throws {Error} - si el token es invalido o no existe.
+ */
 const compareToken = async (token) => {
   if (!token) throw new Error("Token no valido");
   return jwt.verify(token, KEY_JWT, (err, decoded) => {
@@ -14,6 +21,13 @@ const compareToken = async (token) => {
 };
 
 export default class UserController {
+  /**
+   * registra un nuevo usuario en la base de datos.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static registerUser = async (req, res) => {
     const { name, email, password, age, height, weight } = req.body;
     try {
@@ -31,6 +45,13 @@ export default class UserController {
     }
   };
 
+  /**
+   * inicia la sesion del usuario, genera los tokens y los guarda en cookies.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static login = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -78,6 +99,13 @@ export default class UserController {
     }
   };
 
+  /**
+   * refresca el access token usando el refresh token guardado en cookies.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static refreshToken = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken)
@@ -112,6 +140,13 @@ export default class UserController {
     }
   };
 
+  /**
+   * devuelve la informacion del usuario autenticado.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static myInfo = async (req, res) => {
     const token = req.cookies.authToken;
     try {
@@ -122,6 +157,13 @@ export default class UserController {
     }
   };
 
+  /**
+   * devuelve las rutinas del usuario autenticado.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static myRoutines = async (req, res) => {
     const token = req.cookies.authToken;
     try {
@@ -133,6 +175,13 @@ export default class UserController {
     }
   };
 
+  /**
+   * crea una nueva rutina para el usuario autenticado.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static setRoutine = async (req, res) => {
     const { name } = req.body;
     const token = req.cookies.authToken;
@@ -146,6 +195,13 @@ export default class UserController {
     }
   };
 
+  /**
+   * cierra la sesion del usuario, elimina el refresh token y limpia las cookies.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static logout = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (refreshToken) {
@@ -164,6 +220,13 @@ export default class UserController {
       .send({ message: "Sesión cerrada" });
   };
 
+  /**
+   * elimina una rutina por su ID.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static deleteRoutine = async (req, res) => {
     const { routineId } = req.body;
     try {
@@ -174,6 +237,13 @@ export default class UserController {
     }
   };
 
+  /**
+   * crea un nuevo ejercicio en una rutina.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static setExcercise = async (req, res) => {
     const { routineId, name, description, lastWeight, sets } = req.body;
     try {
@@ -189,6 +259,13 @@ export default class UserController {
     }
   };
 
+  /**
+   * elimina un ejercicio de una rutina.
+   * @async
+   * @param {req} req - objeto de solicitud HTTP.
+   * @param {res} res - objeto de respuesta HTTP.
+   * @returns {Promise<void>}
+   */
   static deleteExcercise = async (req, res) => {
     const { routineId, exerciseId } = req.body;
     try {
