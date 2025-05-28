@@ -1,0 +1,36 @@
+import App from "./App.jsx";
+import useTheme from "./context/theme/theme.js";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+
+function ThemeAppWrapper() {
+  const mode = useTheme((state) => state.mode);
+
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+      background: {
+        default: mode === "dark" ? "#121212" : "#f4f5f9",
+        paper: mode === "dark" ? "#1e1e1e" : "#ffffff",
+      },
+      primary: {
+        main: "#121212",
+        contrastText: "#fff",
+      },
+      secondary: {
+        main: "#FF6B35",
+      },
+    },
+    typography: {
+      fontFamily: "Roboto, sans-serif",
+    },
+  });
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  );
+}
+
+export default ThemeAppWrapper;

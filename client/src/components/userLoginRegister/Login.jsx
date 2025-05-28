@@ -18,7 +18,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import { useState } from "react";
 // import { set } from "mongoose";
-import useAuth from "../../auth/auth";
+import useAuth from "../../context/auth/auth";
 const Login = ({ loginOpen, handleLoginOpen }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));

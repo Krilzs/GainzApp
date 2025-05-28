@@ -6,5 +6,15 @@ const routes = [
     name: "Home",
     element: <Home />,
   },
+  {
+    path: "/",
+    name: "Dashboard",
+    element: <Home />,
+  },
+  {
+    path: "/",
+    name: "Exercises",
+    element: <Home />,
+  },
 ];
 export default routes;

@@ -1,17 +1,6 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Avatar, Box, Button, List, Stack } from "@mui/material";
+import ListItemCustom from "./ListItemCustom.jsx";
+import ThemeSwitcher from "../theme/SwitchTheme.jsx";
 
 const NavListDrawer = ({
   routes,
@@ -23,7 +12,7 @@ const NavListDrawer = ({
   return (
     <>
       <Box sx={{ width: "250px", height: "100%", bgcolor: "primary.main" }}>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           {isLoggedIn == false && (
             <Stack spacing={1} pt={2} pl={2} direction="row">
               <Button
@@ -53,23 +42,20 @@ const NavListDrawer = ({
         </Box>
         <nav>
           <List>
-            {routes.map((route) => (
-              <ListItemButton
-                key={route.name}
-                component={NavLink}
-                to={route.path}
-                onClick={drawerOpen}
-              >
-                <ListItemText
-                  sx={{ color: "primary.contrastText" }}
-                  variant="h1"
-                  primary={route.name}
+            {routes.map((route, index) => {
+              return (
+                <ListItemCustom
+                  route={route}
+                  key={route.name}
+                  drawerOpen={drawerOpen}
+                  index={index}
                 />
-              </ListItemButton>
-            ))}
+              );
+            })}
           </List>
         </nav>
       </Box>
+      <ThemeSwitcher />
     </>
   );
 };
