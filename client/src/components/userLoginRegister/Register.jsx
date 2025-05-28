@@ -239,6 +239,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
               error={getError("name").hasError}
               helperText={getError("name").error}
               variant="standard"
+              color="secondary"
               onChange={handleChange}
             />
             <TextField
@@ -252,6 +253,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
               error={getError("email").hasError}
               helperText={getError("email").error}
               variant="standard"
+              color="secondary"
               onChange={handleChange}
             />
 
@@ -266,6 +268,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
               variant="standard"
               error={getError("password").hasError}
               helperText={getError("password").error}
+              color="secondary"
               onChange={handleChange}
             />
             <TextField
@@ -277,6 +280,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
               type="password"
               fullWidth
               variant="standard"
+              color="secondary"
               error={getError("confirmPassword").hasError}
               helperText={getError("confirmPassword").error}
               onChange={handleChange}
@@ -286,6 +290,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
             <TextField
               required
               margin="dense"
+              color="secondary"
               id="age"
               name="age"
               label="Edad"
@@ -307,6 +312,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
                 },
               }}
               margin="dense"
+              color="secondary"
               id="height"
               name="height"
               label="Altura"
@@ -331,6 +337,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
               sx={styleNumber}
               id="weight"
               name="weight"
+              color="secondary"
               label="Peso"
               type="number"
               fullWidth
