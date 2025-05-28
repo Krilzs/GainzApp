@@ -13,7 +13,12 @@ const routes = [
   },
   {
     path: "/",
-    name: "Exercises",
+    name: "Ejercicios",
+    element: <Home />,
+  },
+  {
+    path: "/",
+    name: "Quienes Somos",
     element: <Home />,
   },
 ];
