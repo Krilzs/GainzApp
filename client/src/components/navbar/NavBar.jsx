@@ -14,7 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import routes from "../../pages/routes";
 import Login from "../userLoginRegister/Login";
 import Register from "../userLoginRegister/Register";
-import useAuth from "../../auth/auth";
+import useAuth from "../../context/auth/auth";
 
 const NavBar = () => {
   const isLoggedIn = useAuth((s) => s.isLoggedIn);

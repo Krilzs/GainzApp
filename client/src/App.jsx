@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import routes from "./pages/routes.jsx";
 import { useEffect } from "react";
-import useAuth from "./auth/auth.js";
+import useAuth from "./context/auth/auth.js";
 
 const router = createBrowserRouter(routes);
 
