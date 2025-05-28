@@ -8,6 +8,8 @@ import {
   ListItemIcon,
   ListItemText,
   Stack,
+  TableRow,
+  Typography,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
@@ -16,13 +18,39 @@ const NavListDrawer = ({
   drawerOpen,
   handleLoginOpen,
   handleRegisterOpen,
+  isLoggedIn,
 }) => {
   return (
     <>
       <Box sx={{ width: "250px", height: "100%", bgcolor: "primary.main" }}>
-        <Avatar
-          sx={{ marginTop: 2, marginLeft: 2, width: 48, height: 48 }}
-        ></Avatar>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {isLoggedIn == false && (
+            <Stack spacing={1} pt={2} pl={2} direction="row">
+              <Button
+                onClick={handleLoginOpen}
+                sx={{ textWrap: "nowrap" }}
+                color="secondary"
+                size="small"
+                variant="contained"
+              >
+                Iniciar Sesion
+              </Button>
+              <Button
+                onClick={handleRegisterOpen}
+                color="secondary"
+                size="small"
+                variant="outlined"
+              >
+                Registrarse
+              </Button>
+            </Stack>
+          )}
+          {isLoggedIn == true && (
+            <Avatar
+              sx={{ marginTop: 2, marginLeft: 2, width: 48, height: 48 }}
+            ></Avatar>
+          )}
+        </Box>
         <nav>
           <List>
             {routes.map((route) => (
@@ -39,39 +67,7 @@ const NavListDrawer = ({
                 />
               </ListItemButton>
             ))}
-            <ListItemButton onClick={handleLoginOpen}>
-              <ListItemText
-                sx={{ color: "primary.contrastText" }}
-                primary="Iniciar Sesion"
-              />
-            </ListItemButton>
-            <ListItemButton onClick={handleRegisterOpen}>
-              <ListItemText
-                sx={{ color: "primary.contrastText" }}
-                primary="Registrarse"
-              />
-            </ListItemButton>
           </List>
-          <Stack
-            spacing={1}
-            direction="row"
-            sx={{ display: { xs: "none", md: "flex" } }}
-          >
-            <Button
-              onClick={handleLoginOpen}
-              color="success"
-              variant="contained"
-            >
-              Iniciar Sesion
-            </Button>
-            <Button
-              onClick={handleRegisterOpen}
-              color="success"
-              variant="contained"
-            >
-              Registrarse
-            </Button>
-          </Stack>
         </nav>
       </Box>
     </>

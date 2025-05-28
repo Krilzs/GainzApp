@@ -112,6 +112,7 @@ const NavBar = () => {
       >
         <NavListDrawer
           routes={routes}
+          isLoggedIn={isLoggedIn}
           drawerOpen={handleDrawerOpen}
           handleLoginOpen={handleLoginOpen}
           handleRegisterOpen={handleRegisterOpen}
