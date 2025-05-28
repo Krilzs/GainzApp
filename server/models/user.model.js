@@ -3,6 +3,19 @@ import { UserValidate } from "../models/user.validates.js";
 import bcrypt from "bcryptjs";
 
 export class UserModel {
+  /**
+   * crea un nuevo usuario en la base de datos.
+   * @async
+   * @param {Object} newUser - datos del nuevo usuario.
+   * @param {string} newUser.name - nombre del usuario.
+   * @param {string} newUser.email - email del usuario.
+   * @param {string} newUser.password - contrase;a del usuario.
+   * @param {number} newUser.age - edad del usuario.
+   * @param {number} newUser.height - altura del usuario.
+   * @param {number} newUser.weight - peso del usuario.
+   * @returns {Promise<{status: number, message: string}>} promesa con el status y el mensaje.
+   * @throws {Error} si la validacion de datos falla.
+   */
   static async createUser(newUser) {
     //Validacion de Datos
     const Vresult = await UserValidate.validateData(newUser);
@@ -21,6 +34,15 @@ export class UserModel {
       });
   }
 
+  /**
+   * inicia sesion de usuario validando credenciales.
+   * @async
+   * @param {Object} params - parametros de login.
+   * @param {string} params.email - email del usuario.
+   * @param {string} params.password - contrase;a del usuario.
+   * @returns {Promise<Object>} datos del usuario autenticado.
+   * @throws {Error} si la validacion falla o las credenciales son incorrectas.
+   */
   static async login({ email, password }) {
     //Validacion Tipo de datos
     const validPass = await UserValidate.Password(password);
@@ -46,6 +68,13 @@ export class UserModel {
     };
   }
 
+  /**
+   * obtiene las rutinas de un usuario por su ID.
+   * @async
+   * @param {string} id - ID del usuario.
+   * @returns {Promise<Array>} lista de rutinas del usuario.
+   * @throws {Error} si el usuario no existe.
+   */
   static async getRoutines(id) {
     //Consulta a la base de datos sobre las rutinas
     const userRoutines = await User.findById(id, { routines: 1 });
@@ -54,6 +83,14 @@ export class UserModel {
     return userRoutines.routines;
   }
 
+  /**
+   * crea una nueva rutina para el usuario.
+   * @async
+   * @param {string} id - ID del usuario.
+   * @param {string} name - nombre de la rutina.
+   * @returns {Promise<Object>} usuario actualizado.
+   * @throws {Error} si el usuario no existe.
+   */
   static async setNewRoutine(id, name) {
     const user = await User.findByIdAndUpdate(
       id,
@@ -64,6 +101,13 @@ export class UserModel {
     return user;
   }
 
+  /**
+   * elimina una rutina por su ID.
+   * @async
+   * @param {string} routineId - ID de la rutina.
+   * @returns {Promise<Object>} usuario actualizado.
+   * @throws {Error} si la rutina no existe.
+   */
   static async deleteRoutine(routineId) {
     const userRoutine = await User.findOneAndUpdate(
       {
@@ -78,6 +122,18 @@ export class UserModel {
     return userRoutine;
   }
 
+  /**
+   * crea un nuevo ejercicio en una rutina.
+   * @async
+   * @param {string} routineId - ID de la rutina.
+   * @param {Object} excercise - datos del ejercicio.
+   * @param {string} excercise.name - nombre del ejercicio.
+   * @param {string} excercise.description - descripcion del ejercicio.
+   * @param {number} excercise.lastWeight - ultimo peso usado.
+   * @param {Array} excercise.sets - series del ejercicio.
+   * @returns {Promise<Object>} rutina actualizada.
+   * @throws {Error} si la rutina no existe o tiene 10 ejercicios.
+   */
   static async setNewExcercise(routineId, excercise) {
     const userRoutine = await User.findOne(
       { "routines._id": routineId },
@@ -101,6 +157,14 @@ export class UserModel {
     return userRoutine;
   }
 
+  /**
+   * elimina un ejercicio de una rutina.
+   * @async
+   * @param {string} routineId - ID de la rutina.
+   * @param {string} excerciseId - ID del ejercicio.
+   * @returns {Promise<Object>} usuario actualizado.
+   * @throws {Error} si la rutina o el ejercicio no existen.
+   */
   static async deleteExcercise(routineId, excerciseId) {
     //Validacion de Datos(si existe la rutina y el ejercicio)
     const userRoutine = await User.findOne(
@@ -128,14 +192,33 @@ export class UserModel {
     return user;
   }
 
+  /**
+   * guarda el refresh token de un usuario.
+   * @async
+   * @param {string} userId - ID del usuario.
+   * @param {string} refreshToken - refresh token a guardar.
+   * @returns {Promise<void>}
+   */
   static async saveRefreshToken(userId, refreshToken) {
     await User.updateOne({ _id: userId }, { refreshToken });
   }
 
+  /**
+   * elimina el refresh token de un usuario.
+   * @async
+   * @param {string} userId - ID del usuario.
+   * @returns {Promise<void>}
+   */
   static async removeRefreshToken(userId) {
     await User.updateOne({ _id: userId }, { $unset: { refreshToken: "" } });
   }
 
+  /**
+   * busca un usuario por su refresh token.
+   * @async
+   * @param {string} refreshToken - refresh token a buscar.
+   * @returns {Promise<Object|null>} usuario encontrado o null.
+   */
   static async findByRefreshToken(refreshToken) {
     return User.findOne({ refreshToken });
   }
