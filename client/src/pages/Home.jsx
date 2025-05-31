@@ -1,11 +1,12 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import NavBar from "../components/navbar/NavBar";
 import PrincipalHome from "../components/home/PrincipalHome";
 import { gsap } from "gsap";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { FadeInOnScroll } from "../components/home/FadeInScroll";
+
+import Features from "../components/home/Features";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -32,16 +33,16 @@ const Home = () => {
         handleScrollTo={handleScrollTo}
         ejerciciosRef={ejerciciosRef}
       />
-      <FadeInOnScroll>
-        {/* Aca va la parte de ejercicios */}
-        <Box
-          ref={ejerciciosRef}
-          sx={{
-            position: "relative",
-            height: "100vh",
-          }}
-        ></Box>
-      </FadeInOnScroll>
+      <Container
+        ref={ejerciciosRef}
+        maxWidth="lg"
+        sx={{
+          position: "relative",
+          height: "100vh",
+        }}
+      >
+        <Features></Features>
+      </Container>
     </>
   );
 };
