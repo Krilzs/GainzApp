@@ -25,8 +25,10 @@ const PrincipalHome = ({ handleScrollTo, ejerciciosRef }) => {
           right: 0,
           bottom: 0,
           backgroundColor: alpha("#000", 0.5),
+          backdropFilter: "blur(2px)",
           zIndex: 1,
         },
+        mask: "linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0.01))",
       }}
     >
       <Box

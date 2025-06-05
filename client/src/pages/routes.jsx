@@ -1,4 +1,5 @@
 import Home from "./Home.jsx";
+import Dashboard from "./Dashboard.jsx";
 
 const routes = [
   {
@@ -7,9 +8,9 @@ const routes = [
     element: <Home />,
   },
   {
-    path: "/",
+    path: "/dashboard",
     name: "Dashboard",
-    element: <Home />,
+    element: <Dashboard />,
   },
   {
     path: "/",

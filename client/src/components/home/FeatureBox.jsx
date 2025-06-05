@@ -1,8 +1,13 @@
 import { Box, Typography } from "@mui/material";
 
 const FeatureBox = ({ flexDirection, info }) => {
-  if (!flexDirection) flexDirection = "row";
-  else flexDirection = "row-reverse";
+  let rightBorder = "3px solid #FF6B35";
+  let leftBorder = "3px solid #FF6B35";
+  if (!flexDirection) {
+    flexDirection = "row";
+  } else {
+    flexDirection = "row-reverse";
+  }
   return (
     <Box
       sx={{
@@ -21,6 +26,7 @@ const FeatureBox = ({ flexDirection, info }) => {
           height: "100%",
           maxHeight: { xs: "30vh", md: "40vh" },
           maxWidth: { xs: "30vh", md: "40vh" },
+          position: "relative",
         }}
       >
         <img
@@ -28,14 +34,22 @@ const FeatureBox = ({ flexDirection, info }) => {
           alt="aca va la img"
           style={{
             width: "100%",
+            scale: "1.1",
             height: "100%",
             objectFit: "contain",
-            filter: "drop-shadow(0px 0px 60px rgba(255, 107, 53, 0.7))",
+            filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1 ))",
           }}
         />
       </Box>
-      <Box>
-        <Typography variant="h4">{info.title}</Typography>
+      <Box
+        sx={{
+          mt: { xs: 3, md: 0 },
+          borderTop: { xs: "3px solid #FF6B35", md: "none" },
+
+          pt: { xs: 1, md: 0 },
+        }}
+      >
+        <Typography variant="h4" gutterBottom>{info.title}</Typography>
         <Typography>{info.description}</Typography>
       </Box>
     </Box>
