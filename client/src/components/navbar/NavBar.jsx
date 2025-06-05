@@ -4,7 +4,6 @@ import {
   Button,
   Drawer,
   IconButton,
-  List,
   Stack,
   Toolbar,
   Typography,
@@ -16,7 +15,6 @@ import routes from "../../pages/routes";
 import Login from "../userLoginRegister/Login";
 import Register from "../userLoginRegister/Register";
 import useAuth from "../../context/auth/auth";
-import ListItemCustom from "./ListItemCustom";
 
 const NavBar = () => {
   const isLoggedIn = useAuth((s) => s.isLoggedIn);
@@ -63,13 +61,7 @@ const NavBar = () => {
           <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
             GainzsApp
           </Typography>
-         {/*  <List>
-            {routes.map((route, index) => {
-              return (
-                <ListItemCustom route={route} key={route.name} index={index} />
-              );
-            })}
-          </List> */}
+
           {isLoggedIn == false && (
             <Stack
               spacing={1}

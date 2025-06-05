@@ -1,7 +1,6 @@
 import { Avatar, Box, Button, List, Stack } from "@mui/material";
 import ListItemCustom from "./ListItemCustom.jsx";
 import ThemeSwitcher from "../themeSwitcher/SwitchTheme.jsx";
-
 const NavListDrawer = ({
   routes,
   drawerOpen,
