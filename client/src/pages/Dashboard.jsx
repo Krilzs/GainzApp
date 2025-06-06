@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/navbar/NavBar";
 import { Box, Container } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
 import NewRoutineButton from "../components/dashboard/NewRoutineButton";
 import DashboardPanel from "../components/dashboard/Dashboard";
 import useAuth from "../context/auth/auth";
 import PageAdvice from "../components/RestringedPageAdvice/PageAdvice";
 import LoadingRoutines from "../components/dashboard/LoadingRoutines";
+import NewRoutine from "../components/dashboard/NewRoutine";
 
 const Dashboard = () => {
   const [routines, setRoutines] = useState([]);
   const [loading, setLoadingRoutines] = useState(true);
+  const [openRoutineForm, setOpenRoutineForm] = useState(false);
+  const [recharge, setRecharge] = useState(false);
+
+  const handleRecharge = () => {
+    setRecharge(!recharge);
+  };
+
+  const handleOpenRoutineForm = () => {
+    setOpenRoutineForm(!openRoutineForm);
+  };
 
   useEffect(() => {
     setLoadingRoutines(true);
@@ -30,7 +40,7 @@ const Dashboard = () => {
       .catch((error) => {
         console.error("Error fetching routines:", error);
       });
-  }, []);
+  }, [recharge]);
 
   const isLoggedIn = useAuth((s) => s.isLoggedIn);
 
@@ -51,7 +61,15 @@ const Dashboard = () => {
             maxWidth="md"
             sx={{ width: "fit-content", pt: 2 }}
           >
-            <NewRoutineButton loading={loading}></NewRoutineButton>
+            <NewRoutine
+              handleRecharge={handleRecharge}
+              openRoutineForm={openRoutineForm}
+              handleOpenRoutineForm={handleOpenRoutineForm}
+            />
+            <NewRoutineButton
+              handleOpenRoutineForm={handleOpenRoutineForm}
+              loading={loading}
+            />
           </Container>
           {loading ? (
             <LoadingRoutines />
