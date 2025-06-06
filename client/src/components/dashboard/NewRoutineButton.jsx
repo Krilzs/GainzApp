@@ -1,12 +1,15 @@
 import Button from "@mui/material/Button";
 
-const NewRoutineButton = ({loading}) => {
+const NewRoutineButton = ({ loading, handleOpenRoutineForm }) => {
   return (
-    <>
-      <Button disabled={loading} variant="contained" color="secondary">
-        Crear Rutina
-      </Button>
-    </>
+    <Button
+      disabled={loading}
+      onClick={handleOpenRoutineForm}
+      variant="contained"
+      color="secondary"
+    >
+      Crear Rutina
+    </Button>
   );
 };
 

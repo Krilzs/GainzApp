@@ -15,7 +15,7 @@ const DashboardPanel = ({ routines }) => {
         display: "flex",
         flexDirection: "column",
         gap: 1,
-        height: {xs:"100%", md:"calc(100vh - 80px)"},
+        height: { xs: "100%", md: "calc(100vh - 80px)" },
         flexGrow: 1,
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
