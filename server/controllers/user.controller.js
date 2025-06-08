@@ -183,12 +183,12 @@ export default class UserController {
    * @returns {Promise<void>}
    */
   static setRoutine = async (req, res) => {
-    const { name } = req.body;
+    const { name, exercises } = req.body;
     const token = req.cookies.authToken;
     const routineName = `Rutina de ${name}`;
     try {
       const { id } = await compareToken(token);
-      UserModel.setNewRoutine(id, routineName);
+      UserModel.setNewRoutine(id, routineName, exercises);
       res.status(201).send("Rutina creada");
     } catch (error) {
       res.status(400).send(error.message);

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/navbar/NavBar";
 import { Box, Container } from "@mui/material";
-import NewRoutineButton from "../components/dashboard/NewRoutineButton";
-import DashboardPanel from "../components/dashboard/Dashboard";
+import NewRoutineButton from "../components/dashboard/Routines/NewRoutineButton";
+import DashboardPanel from "../components/dashboard/Routines/DashboardPanel";
 import useAuth from "../context/auth/auth";
 import PageAdvice from "../components/RestringedPageAdvice/PageAdvice";
-import LoadingRoutines from "../components/dashboard/LoadingRoutines";
-import NewRoutine from "../components/dashboard/NewRoutine";
+import LoadingRoutines from "../components/dashboard/Routines/LoadingRoutines";
+import NewRoutine from "../components/dashboard/Routines/NewRoutineForm";
 
 const Dashboard = () => {
   const [routines, setRoutines] = useState([]);
@@ -58,8 +58,13 @@ const Dashboard = () => {
         >
           <Container
             component={"aside"}
-            maxWidth="md"
-            sx={{ width: "fit-content", pt: 2 }}
+            disableGutters={true}
+            sx={{
+              width: {xs: "100%", md: "fit-content"},
+              display: "flex",
+              flexDirection: "column",
+              p: 2,
+            }}
           >
             <NewRoutine
               handleRecharge={handleRecharge}
