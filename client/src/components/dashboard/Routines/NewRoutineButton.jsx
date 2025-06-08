@@ -1,15 +1,17 @@
+import { Fab } from "@mui/material";
 import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
 
 const NewRoutineButton = ({ loading, handleOpenRoutineForm }) => {
   return (
-    <Button
+    <Fab
       disabled={loading}
       onClick={handleOpenRoutineForm}
-      variant="contained"
       color="secondary"
+      aria-label="add"
     >
-      Crear Rutina
-    </Button>
+      <AddIcon />
+    </Fab>
   );
 };
 

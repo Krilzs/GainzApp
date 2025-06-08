@@ -23,17 +23,24 @@ const ExerciseCard = ({
 
   return (
     <Grid
-      size={6}
+      size={12}
       sx={{
         border: border,
+        color: "secondary.main",
         backgroundColor: "background.contrast",
-        height: "10vh",
+        height: "100%",
         borderRadius: 2,
         p: 1,
       }}
       onClick={handleClick}
     >
-      <Typography>{exercise.name}</Typography>
+      <Typography
+        color="text.primary"
+        variant="subtitle2"
+        sx={{ height: "100%", cursor: "pointer", textAlign: "center" }}
+      >
+        {exercise.name}
+      </Typography>
     </Grid>
   );
 };

@@ -91,10 +91,10 @@ export class UserModel {
    * @returns {Promise<Object>} usuario actualizado.
    * @throws {Error} si el usuario no existe.
    */
-  static async setNewRoutine(id, name) {
+  static async setNewRoutine(id, name, newExercises) {
     const user = await User.findByIdAndUpdate(
       id,
-      { $push: { routines: { name: name, exercises: [] } } },
+      { $push: { routines: { name: name, exercises: newExercises } } },
       { new: true }
     );
     if (!user) throw new Error("User Not Found");

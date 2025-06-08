@@ -11,7 +11,7 @@ function ThemeAppWrapper() {
       background: {
         default: mode === "dark" ? "#121212" : "#ddd",
         paper: mode === "dark" ? "#000000" : "#ffffff",
-        contrast: mode === "dark" ? "#1e1e1e" : "#ffffff",
+        contrast: mode === "dark" ? "#1e1e1e" : "#bbb",
       },
       primary: {
         main: "#121212",
