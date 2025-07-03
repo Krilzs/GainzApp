@@ -71,7 +71,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/users/login", {
+    fetch("https://gainzapp.onrender.com/users/login", {
       method: "POST",
       credentials: "include",
       headers: {
