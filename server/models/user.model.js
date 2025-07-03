@@ -101,6 +101,15 @@ export class UserModel {
     return user;
   }
 
+  static async getRoutinesById(id, routineId) {
+    const user = await User.find(
+      { _id: id },
+      { routines: { $elemMatch: { _id: routineId } } }
+    );
+    if (!user) throw new Error("User Not Found");
+    return user[0].routines[0];
+  }
+
   /**
    * elimina una rutina por su ID.
    * @async

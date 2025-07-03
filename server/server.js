@@ -29,6 +29,9 @@ app.use(morgan("dev"));
 app.get("/check-auth", authenticate, (req, res) => {
   res.json({ isLoggedIn: true });
 });
+app.use("/", (req, res) => {
+  res.send("Hola Mundo");
+});
 
 app.use("/users", usersRouter);
 app.use(excerciseRouter);
