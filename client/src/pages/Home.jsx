@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
 import Features from "../components/home/Features";
+import Footer from "../components/home/Footer";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -38,11 +39,14 @@ const Home = () => {
         maxWidth="lg"
         sx={{
           position: "relative",
-          height: "100vh",
+          height: "100%",
+          mb: 10,
+          minHeight: "calc(100vh - 64px)",
         }}
       >
         <Features></Features>
       </Container>
+      <Footer />
     </>
   );
 };

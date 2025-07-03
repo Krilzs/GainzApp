@@ -1,23 +1,10 @@
 import { Box, Container, Typography } from "@mui/material";
 
 import RoutineCard from "./RoutineCard";
-import { useState } from "react";
 import RoutineModalData from "./RoutineModalData";
 
 const DashboardPanel = ({ routines }) => {
   let isEmpty = true;
-
-  const [dialogData, setDialogData] = useState({});
-  const [dialogDataOpen, setDialogDataOpen] = useState(false);
-
-  const handleDialogDataOpen = () => {
-    setDialogDataOpen(!dialogDataOpen);
-  };
-
-  const handleDialogData = (data) => {
-    setDialogData(data);
-    handleDialogDataOpen();
-  };
 
   if (routines.length != 0) {
     isEmpty = false;
@@ -54,19 +41,8 @@ const DashboardPanel = ({ routines }) => {
           </Typography>
         </Box>
       ) : (
-        routines.map((routine, i) => (
-          <RoutineCard
-            routine={routine}
-            key={i}
-            handleDialogData={handleDialogData}
-          />
-        ))
+        routines.map((routine, i) => <RoutineCard routine={routine} key={i} />)
       )}
-      <RoutineModalData
-        open={dialogDataOpen}
-        handleDialogDataOpen={handleDialogDataOpen}
-        dialogData={dialogData}
-      />
     </Container>
   );
 };

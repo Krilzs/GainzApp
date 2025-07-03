@@ -111,6 +111,7 @@ const NavBar = () => {
         }}
       >
         <NavListDrawer
+          logout={logout}
           routes={routes}
           isLoggedIn={isLoggedIn}
           drawerOpen={handleDrawerOpen}
