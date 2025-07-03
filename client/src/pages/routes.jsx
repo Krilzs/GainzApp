@@ -1,6 +1,6 @@
 import Home from "./Home.jsx";
 import Dashboard from "./Dashboard.jsx";
-
+import RoutinePage from "./RoutinePage.jsx";
 const routes = [
   {
     path: "/",
@@ -9,18 +9,18 @@ const routes = [
   },
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Mis Rutinas",
     element: <Dashboard />,
-  },
-  {
-    path: "/",
-    name: "Ejercicios",
-    element: <Home />,
   },
   {
     path: "/",
     name: "Quienes Somos",
     element: <Home />,
+  },
+  {
+    path: "/routines/:routineId",
+    name: "RoutinePage",
+    element: <RoutinePage />,
   },
 ];
 export default routes;

@@ -7,6 +7,7 @@ const NavListDrawer = ({
   handleLoginOpen,
   handleRegisterOpen,
   isLoggedIn,
+  logout,
 }) => {
   return (
     <>
@@ -37,25 +38,36 @@ const NavListDrawer = ({
           {isLoggedIn == true && (
             <Avatar
               sx={{ marginTop: 2, marginLeft: 2, width: 48, height: 48 }}
-            ></Avatar>
+            />
           )}
         </Box>
         <nav>
           <List>
             {routes.map((route, index) => {
-              return (
-                <ListItemCustom
-                  route={route}
-                  key={route.name}
-                  drawerOpen={drawerOpen}
-                  index={index}
-                />
-              );
+              if (index < 3)
+                return (
+                  <ListItemCustom
+                    route={route}
+                    key={route.name}
+                    drawerOpen={drawerOpen}
+                    index={index}
+                  />
+                );
             })}
           </List>
         </nav>
       </Box>
       <ThemeSwitcher />
+      {isLoggedIn == true && (
+        <Button
+          onClick={logout}
+          color="secondary"
+          sx={{ borderRadius: 0 }}
+          variant="contained"
+        >
+          Cerrar Sesion
+        </Button>
+      )}
     </>
   );
 };

@@ -9,7 +9,7 @@ import {
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import { NavLink } from "react-router-dom";
 
-const RoutineCard = ({ routine, handleDialogData }) => {
+const RoutineCard = ({ routine }) => {
   return (
     <Card
       sx={{
@@ -24,7 +24,8 @@ const RoutineCard = ({ routine, handleDialogData }) => {
           transition: "all 0.2s ease-in-out",
         },
       }}
-      onClick={() => handleDialogData(routine)}
+      component={NavLink}
+      to={`/routines/${routine._id}`}
     >
       <Box
         sx={{
@@ -48,23 +49,12 @@ const RoutineCard = ({ routine, handleDialogData }) => {
           >
             {routine.name}
           </Typography>
-          {/* <IconButton
-            variant="outlined"
-            size="small"
-            color="secondary"
-            onClick={() => handleDialogData(routine)}
-          >
-            <VisibilityIcon />{" "}
-            <Typography variant="subtitle2" component={"span"}>
-              Ver Detalles
-            </Typography>
-          </IconButton> */}
         </CardContent>
       </Box>
       <CardActions>
         <IconButton
           component={NavLink}
-          to={`/routines/${routine.id}`}
+          to={`/routines/${routine._id}`}
           aria-label="play"
           size="large"
           color="secondary"
