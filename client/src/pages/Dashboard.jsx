@@ -25,7 +25,7 @@ const Dashboard = () => {
   useEffect(() => {
     setLoadingRoutines(true);
 
-    fetch("http://localhost:3000/users/routines", {
+    fetch("https://gainzapp.onrender.com/users/routines", {
       method: "GET",
       credentials: "include",
     })

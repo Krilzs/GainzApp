@@ -37,6 +37,7 @@ function App() {
 
   useEffect(() => {
     checkAuth().then(setIsLoggedIn);
+    console.log("Autentificando...")
   }, [setIsLoggedIn]);
 
   return (
