@@ -17,6 +17,7 @@ usersRouter.post("/refresh-token", UserController.refreshToken);
 usersRouter.get("/info", UserController.myInfo);
 
 usersRouter.get("/routines", UserController.myRoutines);
+usersRouter.get("/routines/:routineId", UserController.getRoutinesById);
 usersRouter.post("/routines", UserController.setRoutine);
 usersRouter.delete("/routines", UserController.deleteRoutine);
 
