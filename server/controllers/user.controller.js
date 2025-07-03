@@ -52,6 +52,18 @@ export default class UserController {
    * @param {res} res - objeto de respuesta HTTP.
    * @returns {Promise<void>}
    */
+
+  static getRoutinesById = async (req, res) => {
+    const { routineId } = req.params;
+    const token = req.cookies.authToken;
+    try {
+      const { id } = await compareToken(token);
+      const routine = await UserModel.getRoutinesById(id, routineId);
+      res.status(200).json(routine);
+    } catch (error) {
+      res.status(404).send(error.message);
+    }
+  };
   static login = async (req, res) => {
     const { email, password } = req.body;
     try {

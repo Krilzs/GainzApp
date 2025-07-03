@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import {  Container } from "@mui/material";
 import NavBar from "../components/navbar/NavBar";
 import PrincipalHome from "../components/home/PrincipalHome";
 import { gsap } from "gsap";

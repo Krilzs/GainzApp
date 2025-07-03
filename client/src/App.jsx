@@ -18,7 +18,11 @@ function App() {
     if (res.status === 401) {
       // Intentar refrescar el token
       const refreshRes = await fetch(
+<<<<<<< HEAD
         "https://gainzapp.onrender.com/users/refresh-token",
+=======
+        "https://gainzapp.onrender.com/refresh-token",
+>>>>>>> main
         {
           method: "POST",
           credentials: "include",
@@ -39,6 +43,7 @@ function App() {
 
   useEffect(() => {
     checkAuth().then(setIsLoggedIn);
+    console.log("Autentificando...")
   }, [setIsLoggedIn]);
 
   return (
