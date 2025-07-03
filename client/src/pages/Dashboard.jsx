@@ -60,7 +60,7 @@ const Dashboard = () => {
             component={"aside"}
             disableGutters={true}
             sx={{
-              width: {xs: "100%", md: "fit-content"},
+              width: { xs: "100%", md: "fit-content" },
               display: "flex",
               flexDirection: "column",
               p: 2,

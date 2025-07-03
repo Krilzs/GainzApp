@@ -3,6 +3,8 @@ import routes from "./pages/routes.jsx";
 import { useEffect } from "react";
 import useAuth from "./context/auth/auth.js";
 
+
+
 const router = createBrowserRouter(routes);
 
 function App() {
@@ -16,7 +18,11 @@ function App() {
     if (res.status === 401) {
       // Intentar refrescar el token
       const refreshRes = await fetch(
+<<<<<<< HEAD
+        "https://gainzapp.onrender.com/users/refresh-token",
+=======
         "https://gainzapp.onrender.com/refresh-token",
+>>>>>>> main
         {
           method: "POST",
           credentials: "include",

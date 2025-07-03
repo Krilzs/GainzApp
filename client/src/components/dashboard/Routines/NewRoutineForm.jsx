@@ -90,7 +90,7 @@ const NewRoutine = ({
       exercises: routineExercises,
     };
 
-    fetch("http://localhost:3000/users/routines", {
+    fetch("https://gainzapp.onrender.com/users/routines", {
       method: "POST",
       credentials: "include",
       headers: {
