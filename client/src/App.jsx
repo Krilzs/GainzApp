@@ -9,14 +9,14 @@ function App() {
   const setIsLoggedIn = useAuth((s) => s.setIsLoggedIn);
 
   async function checkAuth() {
-    let res = await fetch("http://localhost:3000/check-auth", {
+    let res = await fetch("https://gainzapp.onrender.com/check-auth", {
       method: "GET",
       credentials: "include",
     });
     if (res.status === 401) {
       // Intentar refrescar el token
       const refreshRes = await fetch(
-        "http://localhost:3000/users/refresh-token",
+        "https://gainzapp.onrender.com/refresh-token",
         {
           method: "POST",
           credentials: "include",
@@ -24,7 +24,7 @@ function App() {
       );
       if (refreshRes.ok) {
         // Reintenta la peticion original
-        res = await fetch("http://localhost:3000/check-auth", {
+        res = await fetch("https://gainzapp.onrender.com/check-auth", {
           method: "GET",
           credentials: "include",
         });

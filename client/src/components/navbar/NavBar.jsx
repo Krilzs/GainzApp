@@ -33,7 +33,7 @@ const NavBar = () => {
   };
 
   const logout = () => {
-    fetch("http://localhost:3000/users/logout", {
+    fetch("https://gainzapp.onrender.com/users/logout", {
       method: "POST",
       credentials: "include",
     })
