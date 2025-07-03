@@ -25,7 +25,7 @@ const Dashboard = () => {
   useEffect(() => {
     setLoadingRoutines(true);
 
-    fetch("http://localhost:3000/users/routines", {
+    fetch("https://gainzapp.onrender.com/users/routines", {
       method: "GET",
       credentials: "include",
     })
@@ -60,7 +60,7 @@ const Dashboard = () => {
             component={"aside"}
             disableGutters={true}
             sx={{
-              width: {xs: "100%", md: "fit-content"},
+              width: { xs: "100%", md: "fit-content" },
               display: "flex",
               flexDirection: "column",
               p: 2,

@@ -152,7 +152,7 @@ const Register = ({ registerOpen, handleRegisterOpen }) => {
       handleErrors();
       /* RESULT CONTIENE LA DATA PARSEADA, OSEA LA DATA VALIDA PARA EL FETCH... se debe pasar todo menos el confirmPassword */
 
-      fetch("http://localhost:3000/users/register", {
+      fetch("https://gainzapp.onrender.com/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
