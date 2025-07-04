@@ -18,12 +18,7 @@ function App() {
     if (res.status === 401) {
       // Intentar refrescar el token
       const refreshRes = await fetch(
-<<<<<<< HEAD
-        "https://gainzapp.onrender.com/users/refresh-token",
-=======
-        "https://gainzapp.onrender.com/refresh-token",
->>>>>>> main
-        {
+        "https://gainzapp.onrender.com/refresh-token",{
           method: "POST",
           credentials: "include",
         }
