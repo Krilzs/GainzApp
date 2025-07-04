@@ -98,12 +98,14 @@ export default class UserController {
         .cookie("authToken", accessToken, {
           httpOnly: true,
           maxAge: 1000 * 60 * 15,
-          secure: process.env.NODE_ENV === 'production', // Cambiar a true en produccion
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',// Cambiar a true en produccion
         })
         .cookie("refreshToken", refreshToken, {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 7,
-          secure: process.env.NODE_ENV === 'production', // Cambiar a true en produccion
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',// Cambiar a true en produccion
         })
         .send({ message: "Inicio de sesión exitoso" });
     } catch (error) {
