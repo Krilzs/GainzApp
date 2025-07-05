@@ -227,9 +227,16 @@ export default class UserController {
         console.error(err);
       }
     }
+
+
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    };
     res
-      .clearCookie("authToken")
-      .clearCookie("refreshToken")
+      .clearCookie("authToken", cookieOptions)
+      .clearCookie("refreshToken", cookieOptions)
       .status(200)
       .send({ message: "Sesión cerrada" });
   };
