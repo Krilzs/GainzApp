@@ -22,10 +22,6 @@ import useAuth from "../../context/auth/auth";
 const Login = ({ loginOpen, handleLoginOpen }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLoading = () => {
-    setIsLoading(!isLoading);
-  };
-
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [loginError, setLoginError] = useState(false);
@@ -74,29 +70,38 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleLoading();
+    setIsLoading(true); // inicia el loading
 
-    fetch("https://gainzapp.onrender.com/users/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    }).then((response) => {
+    try {
+      const response = await fetch(
+        "https://gainzapp.onrender.com/users/login",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
       if (response.ok) {
-        handleLoading();
         setIsLoggedIn(true);
-        handleLoginOpen(); // Close the dialog
-        // Handle successful login, e.g., redirect or show a success message
+        handleLoginOpen(); // Cierra el dialog
       } else {
-        handleLoading();
-        handleLoginError(true);
+        setLoginError(true);
         setIsLoggedIn(false);
       }
-    });
+    } catch (error) {
+      console.error("Error al logear:", error);
+      handleLoginError(true);
+      setLoginError(true);
+      setIsLoggedIn(false);
+    } finally {
+      setIsLoading(false); // finaliza el loading sí o sí
+    }
   };
 
   return (
