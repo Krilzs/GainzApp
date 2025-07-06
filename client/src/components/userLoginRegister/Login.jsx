@@ -20,6 +20,12 @@ import { useState } from "react";
 // import { set } from "mongoose";
 import useAuth from "../../context/auth/auth";
 const Login = ({ loginOpen, handleLoginOpen }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoading = () => {
+    setIsLoading(!isLoading);
+  };
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [loginError, setLoginError] = useState(false);
@@ -70,6 +76,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    handleLoading();
 
     fetch("https://gainzapp.onrender.com/users/login", {
       method: "POST",
@@ -80,10 +87,12 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
       body: JSON.stringify(formData),
     }).then((response) => {
       if (response.ok) {
+        handleLoading();
         setIsLoggedIn(true);
         handleLoginOpen(); // Close the dialog
         // Handle successful login, e.g., redirect or show a success message
       } else {
+        handleLoading();
         handleLoginError(true);
         setIsLoggedIn(false);
       }
@@ -163,6 +172,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
           </Button>
           <Button
             color="secondary"
+            loading={isLoading}
             variant="contained"
             size="medium"
             type="submit"
