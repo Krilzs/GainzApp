@@ -1,6 +1,7 @@
-import { Avatar, Box, Button, List, Stack } from "@mui/material";
+import { Avatar, Box, Button, Container, List, Stack } from "@mui/material";
 import ListItemCustom from "./ListItemCustom.jsx";
 import ThemeSwitcher from "../themeSwitcher/SwitchTheme.jsx";
+import ConnectionIndicator from "../Connection/ConnectionIndicator.jsx";
 const NavListDrawer = ({
   routes,
   drawerOpen,
@@ -15,6 +16,11 @@ const NavListDrawer = ({
         sx={{ width: "250px", height: "100%", bgcolor: "background.default" }}
       >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
+          {isLoggedIn == null && (
+            <Box px={2} pt={2}>
+              <ConnectionIndicator isConnecting={true} isConnected={false} />
+            </Box>
+          )}
           {isLoggedIn == false && (
             <Stack spacing={1} pt={2} pl={2} direction="row">
               <Button

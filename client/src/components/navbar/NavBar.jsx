@@ -15,13 +15,12 @@ import routes from "../../pages/routes";
 import Login from "../userLoginRegister/Login";
 import Register from "../userLoginRegister/Register";
 import useAuth from "../../context/auth/auth";
-
+import ConnectionIndicator from "../Connection/ConnectionIndicator";
 const NavBar = () => {
   const isLoggedIn = useAuth((s) => s.isLoggedIn);
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
-
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
@@ -94,6 +93,11 @@ const NavBar = () => {
                 Cerrar Sesion
               </Button>
             </Stack>
+          )}
+          {isLoggedIn == null && (
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <ConnectionIndicator isConnecting={true} isConnected={false} />
+            </Box>
           )}
         </Toolbar>
         <Login loginOpen={loginOpen} handleLoginOpen={handleLoginOpen} />
