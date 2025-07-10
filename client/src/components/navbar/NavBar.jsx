@@ -4,6 +4,7 @@ import {
   Button,
   Drawer,
   IconButton,
+  List,
   Stack,
   Toolbar,
   Typography,
@@ -16,6 +17,9 @@ import Login from "../userLoginRegister/Login";
 import Register from "../userLoginRegister/Register";
 import useAuth from "../../context/auth/auth";
 import ConnectionIndicator from "../Connection/ConnectionIndicator";
+
+import GainzLogo from "../../../static/photos/GainzLogo.png";
+import { NavLink } from "react-router-dom";
 const NavBar = () => {
   const isLoggedIn = useAuth((s) => s.isLoggedIn);
   const [open, setOpen] = useState(false);
@@ -58,7 +62,63 @@ const NavBar = () => {
             </IconButton>
           </Box>
           <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
-            GainzsApp
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "end",
+                justifyContent: { xs: "end", md: "flex-start" },
+                width: "100%",
+              }}
+            >
+              <Box
+                component={NavLink}
+                to={"/"}
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <img
+                  src={GainzLogo}
+                  style={{
+                    width: "auto",
+                    height: "64px",
+                    objectFit: "contain",
+                    scale: 1.5,
+                  }}
+                />
+              </Box>
+
+              <Box>
+                <List sx={{ display: { xs: "none", md: "flex" }, px: 1 }}>
+                  {routes.map((route, index) => {
+                    if (index < 3)
+                      return (
+                        <Typography
+                          route={route}
+                          component={NavLink}
+                          fontFamily={"anton"}
+                          to={route.path}
+                          variant="h6"
+                          sx={{
+                            px: 1,
+                            color: "text.secondary",
+                            textDecoration: "none",
+                            transition: "all 0.2s ease-in-out",
+                            ":hover": {
+                              transition: "all 0.2s ease-in-out",
+                              color: "secondary.dark",
+                              textDecorationColor: "secondary.dark",
+                              textDecorationThickness: "3px",
+                            },
+                          }}
+                          key={route.name}
+                          index={index}
+                        >
+                          {route.name.toUpperCase()}
+                        </Typography>
+                      );
+                  })}
+                </List>
+              </Box>
+            </Box>
           </Typography>
 
           {isLoggedIn == false && (

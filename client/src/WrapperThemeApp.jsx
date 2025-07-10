@@ -1,6 +1,7 @@
 import App from "./App.jsx";
 import useTheme from "./context/theme/theme.js";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import '@fontsource/anton'; 
 
 function ThemeAppWrapper() {
   const mode = useTheme((state) => state.mode);
@@ -19,14 +20,17 @@ function ThemeAppWrapper() {
         },
       text: {
         primary: mode === "dark" ? "#ffffff" : "#121212",
-        secondary: mode === "dark" ? "#ffffff" : "#121212",
+        secondary: mode === "dark" ? "#555" : "#555",
       },
       secondary: {
         main: "#FF6B35",
       },
+
     },
     typography: {
       fontFamily: "Roboto, sans-serif",
+      
+
     },
   });
 

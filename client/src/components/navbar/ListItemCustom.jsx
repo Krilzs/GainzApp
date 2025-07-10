@@ -38,7 +38,7 @@ const ListItemCustom = ({ route, drawerOpen, index }) => {
         }}
         variant="h4"
       >
-        <Typography variant="h6" component="span">
+        <Typography variant="h6" fontFamily={"anton"} component="span">
           {route.name}
         </Typography>
       </ListItemText>

@@ -19,8 +19,8 @@ const Footer = () => {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="secondary.main" gutterBottom>
-              GainzApp
+            <Typography variant="h4" fontFamily={"anton"} color="secondary.main" gutterBottom>
+              GAINZ
             </Typography>
             <Typography variant="body2">
               Tu compañero ideal para alcanzar tus metas fitness. Registra tus
