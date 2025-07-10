@@ -54,6 +54,7 @@ const NavListDrawer = ({
                 return (
                   <ListItemCustom
                     route={route}
+                    fontFamily={"anton"}
                     key={route.name}
                     drawerOpen={drawerOpen}
                     index={index}

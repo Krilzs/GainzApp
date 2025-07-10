@@ -1,8 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
 const FeatureBox = ({ flexDirection, info }) => {
-  let rightBorder = "3px solid #FF6B35";
-  let leftBorder = "3px solid #FF6B35";
   if (!flexDirection) {
     flexDirection = "row";
   } else {
@@ -49,7 +47,9 @@ const FeatureBox = ({ flexDirection, info }) => {
           pt: { xs: 1, md: 0 },
         }}
       >
-        <Typography variant="h4" gutterBottom>{info.title}</Typography>
+        <Typography variant="h4" fontFamily={"anton"} gutterBottom>
+          {info.title}
+        </Typography>
         <Typography>{info.description}</Typography>
       </Box>
     </Box>
