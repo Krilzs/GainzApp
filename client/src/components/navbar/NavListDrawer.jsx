@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Container, List, Stack } from "@mui/material";
 import ListItemCustom from "./ListItemCustom.jsx";
 import ThemeSwitcher from "../themeSwitcher/SwitchTheme.jsx";
 import ConnectionIndicator from "../Connection/ConnectionIndicator.jsx";
+import AvatarMenu from "./Avatar.jsx";
 const NavListDrawer = ({
   routes,
   drawerOpen,
@@ -41,20 +42,15 @@ const NavListDrawer = ({
               </Button>
             </Stack>
           )}
-          {isLoggedIn == true && (
-            <Avatar
-              sx={{ marginTop: 2, marginLeft: 2, width: 48, height: 48 }}
-            />
-          )}
+          {isLoggedIn == true && <AvatarMenu></AvatarMenu>}
         </Box>
         <nav>
-          <List>
+          <List sx={{ p: 0 }}>
             {routes.map((route, index) => {
               if (index < 3)
                 return (
                   <ListItemCustom
                     route={route}
-                    fontFamily={"anton"}
                     key={route.name}
                     drawerOpen={drawerOpen}
                     index={index}

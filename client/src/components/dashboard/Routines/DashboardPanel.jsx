@@ -1,26 +1,54 @@
 import { Box, Container, Typography } from "@mui/material";
-
+import gsap from "gsap";
 import RoutineCard from "./RoutineCard";
-import RoutineModalData from "./RoutineModalData";
+import { useEffect, useRef } from "react";
+
+gsap.registerPlugin();
 
 const DashboardPanel = ({ routines }) => {
   let isEmpty = true;
+
+  const cardsRef = useRef([]);
+  cardsRef.current = [];
+
+  useEffect(() => {
+    gsap.fromTo(
+      cardsRef.current,
+      {
+        y: 50,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        delay: 0.5,
+        stagger: 0.2,
+        ease: "power3.out",
+      }
+    );
+  }, []);
+
+  const addToRefs = (el) => {
+    if (el && !cardsRef.current.includes(el)) {
+      cardsRef.current.push(el);
+    }
+  };
 
   if (routines.length != 0) {
     isEmpty = false;
   }
   return (
-    <Container
+    <Box
       component={"main"}
       sx={{
         display: "flex",
         flexDirection: "column",
         gap: 1,
-        height: { xs: "100%", md: "calc(100vh - 80px)" },
+        height: { xs: "100%", md: "calc(100vh - 200px)" },
         flexGrow: 1,
         borderTopLeftRadius: { xs: 50, md: 25 },
         borderTopRightRadius: { xs: 50, md: 25 },
-        backgroundColor: "background.contrast",
         boxShadow: 5,
         overflowY: "scroll",
         "&::-webkit-scrollbar": {
@@ -41,9 +69,13 @@ const DashboardPanel = ({ routines }) => {
           </Typography>
         </Box>
       ) : (
-        routines.map((routine, i) => <RoutineCard routine={routine} key={i} />)
+        routines.map((routine, i) => (
+          <Box key={i} ref={addToRefs}>
+            <RoutineCard routine={routine} key={i} />
+          </Box>
+        ))
       )}
-    </Container>
+    </Box>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/navbar/NavBar";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import NewRoutineButton from "../components/dashboard/Routines/NewRoutineButton";
 import DashboardPanel from "../components/dashboard/Routines/DashboardPanel";
 import useAuth from "../context/auth/auth";
@@ -48,22 +48,27 @@ const Dashboard = () => {
     return (
       <Box sx={{ minHeight: "100vh" }}>
         <Navbar />
-        <Box
+        <Container
+        maxWidth={"md"}
           sx={{
             height: "100%",
             minHeight: "calc(100vh - 64px)",
+            justifyContent: "start",
             display: "flex",
-            flexDirection: { xs: "column", md: "row" },
+            flexDirection: "column",
           }}
         >
           <Container
             component={"aside"}
             disableGutters={true}
             sx={{
-              width: { xs: "100%", md: "fit-content" },
+              width: "100%",
               display: "flex",
-              flexDirection: "column",
-              p: 2,
+              flexDirection: "row",
+              alignItems: "center",
+              pt: 2,
+
+              justifyContent: "start",
             }}
           >
             <NewRoutine
@@ -75,13 +80,24 @@ const Dashboard = () => {
               handleOpenRoutineForm={handleOpenRoutineForm}
               loading={loading}
             />
+            <Container sx={{ display: { xs: "none" } }}>
+              <Typography variant="h4" component="h3">
+                Rutinas
+              </Typography>
+              <Typography>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex sed
+                accusamus pariatur optio harum hic numquam, odit voluptas
+                repudiandae ipsam quo modi architecto cum quidem tempora odio
+                sint corrupti? Quia.
+              </Typography>
+            </Container>
           </Container>
           {loading ? (
             <LoadingRoutines />
           ) : (
             <DashboardPanel routines={routines} />
           )}
-        </Box>
+        </Container>
       </Box>
     );
   } else if (isLoggedIn == false) {
