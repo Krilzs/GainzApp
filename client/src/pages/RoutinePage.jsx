@@ -9,9 +9,11 @@ import {
   Paper,
   TableRow,
   Typography,
+  Button,
 } from "@mui/material";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import NavBar from "../components/navbar/NavBar";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const RoutinePage = () => {
@@ -39,7 +41,26 @@ const RoutinePage = () => {
       <NavBar></NavBar>
       {routineData && (
         <Box display={"flex"} flexDirection={"column"}>
-          <Container maxWidth="lg" sx={{ mt: 2, p: 1 }}>
+          <Container
+            maxWidth="lg"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              mt: 2,
+              p: 1,
+              gap: 1,
+            }}
+          >
+            <Button
+              color="secondary"
+              variant="contained"
+              component={NavLink}
+              to={"/dashboard"}
+              sx={{ width: "fit-content" }}
+            >
+              <KeyboardArrowLeftIcon />
+              <Typography variant="subtitle2">Rutinas</Typography>
+            </Button>
             <Typography variant="h4" fontWeight={"bold"} component={"h2"}>
               {routineData.name}
             </Typography>

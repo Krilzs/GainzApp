@@ -15,9 +15,10 @@ const RoutineCard = ({ routine }) => {
       sx={{
         display: "flex",
         borderRadius: { xs: 6, md: 3 },
-        minHeight: { xs: 120, md: 70 },
+        minHeight: { xs: 80, md: 70 },
         cursor: "pointer",
         transition: "all 0.2s ease-in-out",
+        textDecoration: "none",
         ":hover": {
           boxShadow: 5,
           transform: "scale(1.01)",
@@ -39,9 +40,10 @@ const RoutineCard = ({ routine }) => {
           <Typography
             component="p"
             variant="h6"
-            color="text.secondary"
+            color="text.primary"
             sx={{
               textOverflow: "ellipsis",
+              textDecoration: "none",
               overflow: "hidden",
               whiteSpace: "nowrap",
               width: { xs: "200px", sm: "300px", md: "100%" },
@@ -51,12 +53,12 @@ const RoutineCard = ({ routine }) => {
           </Typography>
         </CardContent>
       </Box>
-      <CardActions>
+      <CardActions sx={{p:0 , width:"fit-content"}}>
         <IconButton
           component={NavLink}
           to={`/routines/${routine._id}`}
           aria-label="play"
-          size="large"
+          size="small"
           color="secondary"
         >
           <PlayCircleIcon sx={{ fontSize: 35 }}></PlayCircleIcon>
