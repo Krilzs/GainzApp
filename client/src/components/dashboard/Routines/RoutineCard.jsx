@@ -56,7 +56,7 @@ const RoutineCard = ({ routine }) => {
       <CardActions sx={{ p: 0, width: "fit-content" }}>
         <IconButton
           component={NavLink}
-          to={`/routines/${routine._id}`}
+          to={`/training/${routine._id}`}
           aria-label="play"
           size="small"
           color="secondary"
