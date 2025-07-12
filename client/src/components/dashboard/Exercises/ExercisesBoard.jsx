@@ -56,12 +56,9 @@ const ExercisesBoard = ({ addRoutineExercises, removeRoutineExercises }) => {
   };
 
   useEffect(() => {
-    fetch(
-      /* "https://gainzapp.onrender.com/exercises" */ "http://localhost:3000/exercises",
-      {
-        method: "GET",
-      }
-    )
+    fetch("https://gainzapp.onrender.com/exercises", {
+      method: "GET",
+    })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch exercises");
         return res.json();

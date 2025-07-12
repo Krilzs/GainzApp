@@ -20,13 +20,10 @@ const RoutinePage = () => {
   const { routineId } = useParams();
   const [routineData, setRoutineData] = useState();
   useEffect(() => {
-    fetch(
-      /* `https://gainzapp.onrender.com/users/routines/${routineId}` */ `http://localhost:3000/users/routines/${routineId}`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    )
+    fetch(`https://gainzapp.onrender.com/users/routines/${routineId}`, {
+      method: "GET",
+      credentials: "include",
+    })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch routines");
         return res.json();
