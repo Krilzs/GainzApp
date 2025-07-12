@@ -1,7 +1,12 @@
 import { Schema, model } from "mongoose";
 import { routineSchema } from "./Routine.js";
+import { Types } from "mongoose";
 import { z } from "zod";
 
+const objectIdSchema = z.union([
+  z.string().regex(/^[0-9a-fA-F]{24}$/),
+  z.instanceof(Types.ObjectId),
+]);
 // 1. Definición del Schema de Zod para User
 const UserZodSchema = z.object({
   name: z.string().min(2).max(50),
@@ -13,11 +18,41 @@ const UserZodSchema = z.object({
   routines: z
     .array(
       z.object({
-        // Esquema básico de Zod para elementos de routines (si es necesario)
         name: z.string().min(2).max(100),
         description: z.string().optional(),
-        exercises: z.array(z.string()),
-        _id: z.any().optional(), // Mongoose agrega _id automáticamente
+        exercises: z.array(
+          z.object({
+            name: z.string(),
+            description: z.string().optional(),
+            sets: z.array(
+              z.object({
+                reps: z.number(),
+                weight: z.number(),
+              })
+            ),
+            _id: objectIdSchema.optional(),
+          })
+        ),
+        history: z
+          .array(
+            z.object({
+              date: z.date(),
+              exercises: z.array(
+                z.object({
+                  name: z.string(),
+                  description: z.string().optional(),
+                  sets: z.array(
+                    z.object({
+                      reps: z.number(),
+                      weight: z.number(),
+                    })
+                  ),
+                })
+              ),
+            })
+          )
+          .optional(),
+        _id: objectIdSchema.optional(),
       })
     )
     .optional(),

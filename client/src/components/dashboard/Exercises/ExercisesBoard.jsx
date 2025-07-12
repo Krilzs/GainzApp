@@ -56,9 +56,12 @@ const ExercisesBoard = ({ addRoutineExercises, removeRoutineExercises }) => {
   };
 
   useEffect(() => {
-    fetch("https://gainzapp.onrender.com/exercises", {
-      method: "GET",
-    })
+    fetch(
+      /* "https://gainzapp.onrender.com/exercises" */ "http://localhost:3000/exercises",
+      {
+        method: "GET",
+      }
+    )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch exercises");
         return res.json();
@@ -73,7 +76,7 @@ const ExercisesBoard = ({ addRoutineExercises, removeRoutineExercises }) => {
 
   return (
     <Box>
-      <Divider sx={{my:1}}>Seleccionar Ejercicios</Divider>
+      <Divider sx={{ my: 1 }}>Seleccionar Ejercicios</Divider>
       <Accordion
         variant="outlined"
         sx={{ backgroundColor: "background.contrast" }}

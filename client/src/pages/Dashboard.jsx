@@ -25,10 +25,13 @@ const Dashboard = () => {
   useEffect(() => {
     setLoadingRoutines(true);
 
-    fetch("https://gainzapp.onrender.com/users/routines", {
-      method: "GET",
-      credentials: "include",
-    })
+    fetch(
+      /* "https://gainzapp.onrender.com/users/routines" */ "http://localhost:3000/users/routines",
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch routines");
         return res.json();
@@ -49,7 +52,7 @@ const Dashboard = () => {
       <Box sx={{ minHeight: "100vh" }}>
         <Navbar />
         <Container
-        maxWidth={"md"}
+          maxWidth={"md"}
           sx={{
             height: "100%",
             minHeight: "calc(100vh - 64px)",

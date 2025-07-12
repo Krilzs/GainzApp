@@ -76,7 +76,7 @@ const Login = ({ loginOpen, handleLoginOpen }) => {
 
     try {
       const response = await fetch(
-        "https://gainzapp.onrender.com/users/login",
+        /* "https://gainzapp.onrender.com/users/login" */ "http://localhost:3000/users/login",
         {
           method: "POST",
           credentials: "include",
