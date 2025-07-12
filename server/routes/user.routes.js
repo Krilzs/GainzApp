@@ -19,6 +19,7 @@ usersRouter.get("/info", UserController.myInfo);
 usersRouter.get("/routines", UserController.myRoutines);
 usersRouter.get("/routines/:routineId", UserController.getRoutinesById);
 usersRouter.post("/routines", UserController.setRoutine);
+usersRouter.post("/routines/history", UserController.setRoutineHistory);
 usersRouter.delete("/routines", UserController.deleteRoutine);
 
 usersRouter.post("/routines/exercise", UserController.setExcercise);

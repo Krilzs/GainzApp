@@ -53,7 +53,7 @@ const RoutineCard = ({ routine }) => {
           </Typography>
         </CardContent>
       </Box>
-      <CardActions sx={{p:0 , width:"fit-content"}}>
+      <CardActions sx={{ p: 0, width: "fit-content" }}>
         <IconButton
           component={NavLink}
           to={`/routines/${routine._id}`}

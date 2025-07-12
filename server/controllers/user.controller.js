@@ -98,14 +98,14 @@ export default class UserController {
         .cookie("authToken", accessToken, {
           httpOnly: true,
           maxAge: 1000 * 60 * 15,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',// Cambiar a true en produccion
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cambiar a true en produccion
         })
         .cookie("refreshToken", refreshToken, {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 7,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',// Cambiar a true en produccion
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cambiar a true en produccion
         })
         .send({ message: "Inicio de sesión exitoso" });
     } catch (error) {
@@ -228,7 +228,6 @@ export default class UserController {
       }
     }
 
-
     const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -294,6 +293,18 @@ export default class UserController {
       res.status(200).send("Ejercicio eliminado");
     } catch (error) {
       res.status(400).send(error.message);
+    }
+  };
+
+  static setRoutineHistory = async (req, res) => {
+    const token = req.cookies.authToken;
+    const { routineId, log } = req.body;
+    try {
+      const { id } = await compareToken(token);
+      const result = await UserModel.addHistoryToRoutine(id, routineId, log);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(404).send(error.message);
     }
   };
 }

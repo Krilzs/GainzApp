@@ -231,4 +231,32 @@ export class UserModel {
   static async findByRefreshToken(refreshToken) {
     return User.findOne({ refreshToken });
   }
+
+  static async addHistoryToRoutine(userId, routineId, log) {
+    const user = await User.findById(userId);
+    if (!user) throw new Error("Usuario no encontrado");
+
+    const routine = user.routines.id(routineId);
+    if (!routine) throw new Error("Rutina no encontrada");
+
+    const newEntry = {
+      date: new Date(),
+      exercises: routine.exercises.map((exercise) => ({
+        _id: exercise._id,
+        name: exercise.name,
+        sets: exercise.sets.map((set) => {
+          const entry = log[exercise._id]?.[set._id];
+          return {
+            reps: entry?.reps || 0,
+            weight: entry?.weight || 0,
+          };
+        }),
+      })),
+    };
+
+    routine.history.push(newEntry);
+    await user.save();
+
+    return routine.history; // o lo que quieras devolver
+  }
 }

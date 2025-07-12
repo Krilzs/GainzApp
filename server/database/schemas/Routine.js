@@ -1,5 +1,7 @@
 import { ExerciseSchema } from "./Exercise.js";
 import { Schema, model } from "mongoose";
+
+import { HistorialSchema } from "./History.js";
 export const routineSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -12,6 +14,10 @@ export const routineSchema = new Schema(
         message: (props) =>
           `El array de ejercicios no puede tener más de 10 elementos (tiene {VALUE}).`,
       },
+    },
+    history: {
+      type: [HistorialSchema],
+      default: [],
     },
   },
   {
