@@ -301,7 +301,15 @@ export default class UserController {
     const { routineId, log } = req.body;
     try {
       const { id } = await compareToken(token);
-      const result = await UserModel.addHistoryToRoutine(id, routineId, log);
+      const userId = id;
+      if (!log || !userId || !routineId) {
+        return res.status(400).json({ message: "Faltan datos" });
+      }
+      const result = await UserModel.addHistoryToRoutine(
+        userId,
+        routineId,
+        log
+      );
       res.status(200).json(result);
     } catch (error) {
       res.status(404).send(error.message);

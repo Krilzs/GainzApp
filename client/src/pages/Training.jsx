@@ -33,9 +33,21 @@ const Training = () => {
   };
 
   const handleSubmit = () => {
-    if (canSubmit) {
-      // Enviar al backend
-      console.log("Historial listo para enviar:", log);
+    if (canSubmit && routineId && log) {
+      fetch("https://gainzapp.onrender.com/users/routines/history", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ routineId, log }),
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error("Error submitting log:", error);
+        });
     }
   };
 
