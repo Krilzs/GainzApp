@@ -73,7 +73,7 @@ const ExercisesBoard = ({ addRoutineExercises, removeRoutineExercises }) => {
 
   return (
     <Box>
-      <Divider sx={{my:1}}>Seleccionar Ejercicios</Divider>
+      <Divider sx={{ my: 1 }}>Seleccionar Ejercicios</Divider>
       <Accordion
         variant="outlined"
         sx={{ backgroundColor: "background.contrast" }}

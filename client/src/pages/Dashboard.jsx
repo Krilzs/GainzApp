@@ -49,7 +49,7 @@ const Dashboard = () => {
       <Box sx={{ minHeight: "100vh" }}>
         <Navbar />
         <Container
-        maxWidth={"md"}
+          maxWidth={"md"}
           sx={{
             height: "100%",
             minHeight: "calc(100vh - 64px)",

@@ -242,21 +242,24 @@ export class UserModel {
     const newEntry = {
       date: new Date(),
       exercises: routine.exercises.map((exercise) => ({
-        _id: exercise._id,
         name: exercise.name,
+        description: exercise.description,
         sets: exercise.sets.map((set) => {
-          const entry = log[exercise._id]?.[set._id];
+          const entry = log?.[exercise._id.toString()]?.[set._id.toString()];
+          const reps = Number(entry?.reps);
+          const weight = Number(entry?.weight);
           return {
-            reps: entry?.reps || 0,
-            weight: entry?.weight || 0,
+            reps: isNaN(reps) ? 0 : reps,
+            weight: isNaN(weight) ? 0 : weight,
           };
         }),
       })),
     };
 
     routine.history.push(newEntry);
-    await user.save();
 
-    return routine.history; // o lo que quieras devolver
+    const updatedUser = await user.save();
+
+    return updatedUser;
   }
 }

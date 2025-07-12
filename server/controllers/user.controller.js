@@ -68,6 +68,7 @@ export default class UserController {
     const { email, password } = req.body;
     try {
       const user = await UserModel.login({ email, password });
+      console.log("aca llego");
       const accessToken = jwt.sign(
         {
           id: user.id,
@@ -302,6 +303,7 @@ export default class UserController {
     try {
       const { id } = await compareToken(token);
       const userId = id;
+
       if (!log || !userId || !routineId) {
         return res.status(400).json({ message: "Faltan datos" });
       }
@@ -312,7 +314,8 @@ export default class UserController {
       );
       res.status(200).json(result);
     } catch (error) {
-      res.status(404).send(error.message);
+      console.error("Error al guardar historial:", error); // buena práctica
+      res.status(500).json({ message: error.message });
     }
   };
 }

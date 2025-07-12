@@ -5,6 +5,10 @@ export const ExerciseSchema = new Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: false,
+  },
   sets: {
     type: [
       {
@@ -12,10 +16,6 @@ export const ExerciseSchema = new Schema({
         weight: { type: Number, required: true },
       },
     ],
-  },
-  description: {
-    type: String,
-    required: true,
   },
 });
 

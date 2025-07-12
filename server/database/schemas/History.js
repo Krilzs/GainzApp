@@ -1,10 +1,10 @@
-import { ExerciseSchema } from "./Exercise.js";
 import { Schema } from "mongoose";
+import { HistoryExerciseSchema } from "./HistoryExercise.js";
 
 export const HistorialSchema = new Schema(
   {
     exercises: {
-      type: [ExerciseSchema],
+      type: [HistoryExerciseSchema],
       required: true,
     },
     date: {

@@ -34,14 +34,17 @@ const Training = () => {
 
   const handleSubmit = () => {
     if (canSubmit && routineId && log) {
-      fetch("https://gainzapp.onrender.com/users/routines/history", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ routineId, log }),
-      })
+      fetch(
+        /* "https://gainzapp.onrender.com/users/routines/history" */ "http://localhost:3000/users/routines/history",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ routineId, log }),
+        }
+      )
         .then((res) => {
           console.log(res);
         })
