@@ -1,6 +1,7 @@
 import Home from "./Home.jsx";
 import Dashboard from "./Dashboard.jsx";
 import RoutinePage from "./RoutinePage.jsx";
+import Training from "./Training.jsx";
 const routes = [
   {
     path: "/",
@@ -22,5 +23,6 @@ const routes = [
     name: "RoutinePage",
     element: <RoutinePage />,
   },
+  { path: "/training/:routineId", name: "Training", element: <Training /> },
 ];
 export default routes;

@@ -138,6 +138,25 @@ const RoutinePage = () => {
                 </TableBody>
               </Table>
             </TableContainer>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                position: { xs: "fixed", md: "relative" },
+                bottom: { xs: 0 },
+                justifyContent: "center",
+                py: 2,
+              }}
+            >
+              <Button
+                component={NavLink}
+                to={`/training/${routineId}`}
+                color="secondary"
+                variant="contained"
+              >
+                Iniciar Entrenamiento
+              </Button>
+            </Box>
           </Container>
         </Box>
       )}
