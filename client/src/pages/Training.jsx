@@ -2,10 +2,11 @@ import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExerciseAccordion from "../components/Training/ExerciseAccordion";
+import { useNavigate } from "react-router-dom";
 const Training = () => {
   const { routineId } = useParams();
   const [exercises, setExercises] = useState();
-  console.log(exercises);
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     fetch(`https://gainzapp.onrender.com/users/routines/${routineId}`, {
@@ -26,13 +27,14 @@ const Training = () => {
 
   const [log, setLog] = useState({});
   const [canSubmit, setCanSubmit] = useState(false);
-
+  const navigate = useNavigate();
   const handleLogChange = (updatedLog, isComplete) => {
     setLog(updatedLog);
     setCanSubmit(isComplete);
   };
 
   const handleSubmit = () => {
+    setSending(true);
     if (canSubmit && routineId && log) {
       fetch("https://gainzapp.onrender.com/users/routines/history", {
         method: "POST",
@@ -42,10 +44,12 @@ const Training = () => {
         },
         body: JSON.stringify({ routineId, log }),
       })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          setSending(false);
+          navigate(`/dashboard`);
         })
         .catch((error) => {
+          setSending(false);
           console.error("Error submitting log:", error);
         });
     }
@@ -63,6 +67,7 @@ const Training = () => {
           <Button
             variant="contained"
             color="secondary"
+            loading={sending}
             onClick={handleSubmit}
             disabled={!canSubmit}
             sx={{
