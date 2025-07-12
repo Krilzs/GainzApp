@@ -20,6 +20,7 @@ import ConnectionIndicator from "../Connection/ConnectionIndicator";
 
 import GainzLogo from "../../../static/photos/GainzLogo.png";
 import { NavLink } from "react-router-dom";
+import AvatarMenu from "./Avatar";
 const NavBar = () => {
   const isLoggedIn = useAuth((s) => s.isLoggedIn);
   const [open, setOpen] = useState(false);
@@ -144,15 +145,9 @@ const NavBar = () => {
             </Stack>
           )}
           {isLoggedIn == true && (
-            <Stack
-              spacing={1}
-              direction="row"
-              sx={{ display: { xs: "none", md: "flex" } }}
-            >
-              <Button onClick={logout} color="secondary" variant="contained">
-                Cerrar Sesion
-              </Button>
-            </Stack>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <AvatarMenu logout={logout} />
+            </Box>
           )}
           {isLoggedIn == null && (
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
