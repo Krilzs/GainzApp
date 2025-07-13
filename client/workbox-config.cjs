@@ -1,7 +1,7 @@
 module.exports = {
   globDirectory: "dist/",
   globPatterns: ["**/*.{js,css,html,png,svg,woff2}"],
-  swSrc: "public/service-worker.js",
+  swSrc: "service-worker.js", // ya no está en public
   swDest: "dist/service-worker.js",
-  maximumFileSizeToCacheInBytes: 5000000, // 5MB
+  maximumFileSizeToCacheInBytes: 5000000,
 };
