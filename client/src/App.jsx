@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import routes from "./pages/routes.jsx";
 import { useEffect } from "react";
 import useAuth from "./context/auth/auth.js";
+import InstallPWAButton from "./components/navbar/InstallPWAButton.jsx";
 
 const router = createBrowserRouter(routes);
 
@@ -42,6 +43,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router}></RouterProvider>
+      <InstallPWAButton />
     </>
   );
 }
