@@ -1,31 +1,42 @@
-import { precacheAndRoute } from "workbox-precaching";
-import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate, CacheFirst } from "workbox-strategies";
-import { CacheableResponsePlugin } from "workbox-cacheable-response";
-import { ExpirationPlugin } from "workbox-expiration";
+/* eslint-env serviceworker */
+/* global importScripts, workbox */
 
-// Precachéa todos los archivos estáticos generados en el build
-precacheAndRoute(self.__WB_MANIFEST || []);
-
-// Cachea requests de API con stale-while-revalidate
-registerRoute(
-  ({ url }) => url.pathname.startsWith("/api"),
-  new StaleWhileRevalidate({
-    cacheName: "api-cache",
-  })
+// Carga Workbox desde CDN
+importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js"
 );
 
-// Cachea imágenes con cache-first y expiración
-registerRoute(
-  ({ request }) => request.destination === "image",
-  new CacheFirst({
-    cacheName: "image-cache",
-    plugins: [
-      new CacheableResponsePlugin({ statuses: [0, 200] }),
-      new ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 30 * 24 * 60 * 60,
-      }), // 30 días
-    ],
-  })
-);
+// Verificación
+if (workbox) {
+  console.log("✅ Workbox cargado correctamente");
+
+  // Precaching (esto lo inyecta Workbox con injectManifest en el build)
+  workbox.precaching.precacheAndRoute(self.__WB_MANIFEST || []);
+
+  // API: Cache con StaleWhileRevalidate
+  workbox.routing.registerRoute(
+    ({ url }) => url.pathname.startsWith("/api"),
+    new workbox.strategies.StaleWhileRevalidate({
+      cacheName: "api-cache",
+    })
+  );
+
+  // Imágenes: CacheFirst con expiración
+  workbox.routing.registerRoute(
+    ({ request }) => request.destination === "image",
+    new workbox.strategies.CacheFirst({
+      cacheName: "image-cache",
+      plugins: [
+        new workbox.cacheableResponse.CacheableResponsePlugin({
+          statuses: [0, 200],
+        }),
+        new workbox.expiration.ExpirationPlugin({
+          maxEntries: 50,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 días
+        }),
+      ],
+    })
+  );
+} else {
+  console.error("❌ Workbox no se pudo cargar.");
+}
