@@ -3,6 +3,7 @@ import ListItemCustom from "./ListItemCustom.jsx";
 import ThemeSwitcher from "../themeSwitcher/SwitchTheme.jsx";
 import ConnectionIndicator from "../Connection/ConnectionIndicator.jsx";
 import AvatarMenu from "./Avatar.jsx";
+import InstallPWAButton from "./InstallPWAButton.jsx";
 const NavListDrawer = ({
   routes,
   drawerOpen,
@@ -43,6 +44,7 @@ const NavListDrawer = ({
             </Stack>
           )}
           {isLoggedIn == true && <AvatarMenu></AvatarMenu>}
+          <InstallPWAButton />
         </Box>
         <nav>
           <List sx={{ p: 0 }}>
