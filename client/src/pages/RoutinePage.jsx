@@ -10,15 +10,29 @@ import {
   TableRow,
   Typography,
   Button,
+  useTheme,
 } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import NavBar from "../components/navbar/NavBar";
 import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import RoutineHistoryDialog from "../components/Routine/RoutineHistoryDialog";
 const RoutinePage = () => {
   const { routineId } = useParams();
   const [routineData, setRoutineData] = useState();
+  const [routineHistory, setHistory] = useState();
+  console.log(routineHistory);
+  const [openHistory, setOpenHistory] = useState(false);
+
+  const handleHistoryModal = () => {
+    setOpenHistory(!openHistory);
+  };
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   useEffect(() => {
     fetch(`https://gainzapp.onrender.com/users/routines/${routineId}`, {
       method: "GET",
@@ -30,6 +44,7 @@ const RoutinePage = () => {
       })
       .then((data) => {
         setRoutineData(data);
+        setHistory(data.history);
       })
       .catch((error) => {
         console.error("Error fetching routines:", error);
@@ -64,6 +79,14 @@ const RoutinePage = () => {
             <Typography variant="h4" fontWeight={"bold"} component={"h2"}>
               {routineData.name}
             </Typography>
+            <Button
+              onClick={handleHistoryModal}
+              color="secondary"
+              sx={{ width: "fit-content", gap: 1 }}
+            >
+              <CalendarMonthIcon />
+              <Typography variant="subtitle2">Historial</Typography>
+            </Button>
           </Container>
           <Container maxWidth="lg" sx={{ mt: 2, p: 1 }}>
             <TableContainer sx={{ overflowX: "auto" }} component={Paper}>
@@ -159,6 +182,15 @@ const RoutinePage = () => {
             </Box>
           </Container>
         </Box>
+      )}
+      {/* DIALOG CON HISTORIAL DE ENTRENAMIENTOS */}
+      {routineHistory && (
+        <RoutineHistoryDialog
+          routineHistory={routineHistory}
+          open={openHistory}
+          onClose={handleHistoryModal}
+          fullScreen={fullScreen}
+        />
       )}
     </Box>
   );
