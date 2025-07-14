@@ -2,6 +2,7 @@ import Home from "./Home.jsx";
 import Dashboard from "./Dashboard.jsx";
 import RoutinePage from "./RoutinePage.jsx";
 import Training from "./Training.jsx";
+import MoreInfo from "./MoreInfo.jsx";
 const routes = [
   {
     path: "/",
@@ -15,8 +16,8 @@ const routes = [
   },
   {
     path: "/AboutUs",
-    name: "Quienes Somos",
-    element: <Home />,
+    name: "Mas Informacios",
+    element: <MoreInfo />,
   },
   {
     path: "/routines/:routineId",
