@@ -7,6 +7,7 @@ import useAuth from "../context/auth/auth";
 import PageAdvice from "../components/RestringedPageAdvice/PageAdvice";
 import LoadingRoutines from "../components/dashboard/Routines/LoadingRoutines";
 import NewRoutine from "../components/dashboard/Routines/NewRoutineForm";
+import ServerLoadingNotice from "../components/Connection/ServerLoadingNotice";
 
 const Dashboard = () => {
   const [routines, setRoutines] = useState([]);
@@ -105,6 +106,13 @@ const Dashboard = () => {
       <Box sx={{ minHeight: "100vh" }}>
         <Navbar />
         <PageAdvice></PageAdvice>
+      </Box>
+    );
+  } else if (isLoggedIn == null) {
+    return (
+      <Box sx={{ minHeight: "100vh" }}>
+        <Navbar />
+        <ServerLoadingNotice></ServerLoadingNotice>
       </Box>
     );
   }
