@@ -49,6 +49,7 @@ const RoutinePage = () => {
       .catch((error) => {
         console.error("Error fetching routines:", error);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

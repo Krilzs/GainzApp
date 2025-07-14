@@ -18,6 +18,7 @@ const ExerciseAccordion = ({ exercises, onLogChange, history }) => {
     if (onLogChange) {
       onLogChange(workoutLog, isFormComplete());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workoutLog]);
 
   const handleInputChange = (exerciseId, setId, field, value) => {
