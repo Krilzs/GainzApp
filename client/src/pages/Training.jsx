@@ -1,12 +1,14 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExerciseAccordion from "../components/Training/ExerciseAccordion";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../components/Training/LoadingScreenTraining";
 const Training = () => {
   const { routineId } = useParams();
   const [exercises, setExercises] = useState();
   const [sending, setSending] = useState(false);
+  const [history, setHistory] = useState();
 
   useEffect(() => {
     fetch(`https://gainzapp.onrender.com/users/routines/${routineId}`, {
@@ -19,6 +21,7 @@ const Training = () => {
       })
       .then((data) => {
         setExercises(data.exercises);
+        setHistory(data.history[data.history.length - 1]);
       })
       .catch((error) => {
         console.error("Error fetching routines:", error);
@@ -57,10 +60,15 @@ const Training = () => {
 
   return (
     <Box>
-      {!exercises && <Box>Cargando Datos</Box>}
+      {!exercises && (
+        <Box>
+          <LoadingScreen />
+        </Box>
+      )}
       {exercises && (
         <Box>
           <ExerciseAccordion
+            history={history}
             exercises={exercises}
             onLogChange={handleLogChange}
           />
